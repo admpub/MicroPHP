@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>表单验证_MicroPHP手册_MicroPHP_真正的敏捷PHP开发框架</title>
+        <meta name="keywords" content="表单验证,MicroPHP,PHP框架,PHP开发,PHP敏捷开发"/>
+        <meta name="description" content="
+我们平时处理表单数据，一般包含以下三步：
+1.获取数据
+2.检验数据合法性
+3.根据业务逻辑保存数据
+在MicroPHP里面，下面的方法分别对应上面前两个步骤。
+1.获取数据
+  在控制器和模型里面可以通过：
+  $this->readData(Array $map, $source_data = null)，根据$map从$source_data中读取数据。
+  参数说明：,MicroPHP是一个免费、开源、敏捷的MVC模式的PHP开发框架。它易拓展而不失灵活，可以轻松对应大中小型项目。MicroPHP没有大而全的功能，只给你最需要的底层功能，但是给你无限的灵活拓展能力。"/>
+        <link rel="icon" href="public/microphp_res/images/favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="public/microphp_res/images/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" href="public/ui/css/bootstrap.min.css"/><link rel="stylesheet" href="public/ui/css/bootstrap-theme.min.css"/><link rel="stylesheet" href="public/microphp_res/css/buttons.css"/><link rel="stylesheet" href="public/microphp_res/css/style.css?ver=2.4"/>    </head>
+    <body  class="">
+        <div><!--body container start-->
+                <div class="container ">
+            <div class="row">
+                                    <div class="col-sm-12 col-md-3 manual_left">
+                            <script>var html = true;</script>
+    <ul class="nav nav-pills nav-stacked nav-list nav_manual">
+        <h2><small><i class="glyphicon glyphicon-list"></i></small>目录</h2>
+                <li><a class="" href="manual-about_microphp.html" key="about_microphp"><strong>MicroPHP详细介绍</strong></a></li>
+                <li><a class="" href="manual-sysconfig.html" key="sysconfig"><strong>系统配置说明</strong></a></li>
+                <li><a class="active" href="manual-form_validator.html" key="form_validator"><strong>表单验证</strong></a></li>
+                <li><a class="" href="manual-error_control.html" key="error_control"><strong>错误控制</strong></a></li>
+                <li><a class="" href="manual-sys_functions.html" key="sys_functions"><strong>系统函数</strong></a></li>
+                <li><a class="" href="manual-database_manual.html" key="database_manual"><strong>数据库手册</strong></a></li>
+                <li><a class="" href="manual-output.html" key="output"><strong>输出</strong></a></li>
+                <li><a class="" href="manual-config.html" key="config"><strong>获取配置</strong></a></li>
+                <li><a class="" href="manual-library.html" key="library"><strong>使用类库</strong></a></li>
+                <li><a class="" href="manual-view.html" key="view"><strong>使用视图</strong></a></li>
+                <li><a class="" href="manual-router.html" key="router"><strong>URL路由</strong></a></li>
+                <li><a class="" href="manual-console.html" key="console"><strong>命令行下的MicroPHP</strong></a></li>
+                <li><a class="" href="manual-plugin.html" key="plugin"><strong>插件模式</strong></a></li>
+                <li><a class="" href="manual-core_ext.html" key="core_ext"><strong>拓展核心</strong></a></li>
+                <li><a class="" href="manual-cache.html" key="cache"><strong>缓存</strong></a></li>
+                <li><a class="" href="manual-autoload.html" key="autoload"><strong>自动加载</strong></a></li>
+                <li><a class="" href="manual-helper.html" key="helper"><strong>helper文件</strong></a></li>
+                <li><a class="" href="manual-dbcfg.html" key="dbcfg"><strong>数据库配置</strong></a></li>
+                <li><a class="" href="manual-database.html" key="database"><strong>连接数据库</strong></a></li>
+                <li><a class="" href="manual-model.html" key="model"><strong>使用模型</strong></a></li>
+                <li><a class="" href="manual-controller.html" key="controller"><strong>控制器</strong></a></li>
+                <li><a class="" href="manual-name.html" key="name"><strong>命名规则</strong></a></li>
+                <li><a class="" href="manual-pagebar.html" key="pagebar"><strong>分页条</strong></a></li>
+                <li><a class="" href="manual-hmvc.html" key="hmvc"><strong>HMVC模式</strong></a></li>
+                <li><a class="" href="manual-input.html" key="input"><strong>Input输入_获取输入数据</strong></a></li>
+                <li><a class="" href="manual-table_model.html" key="table_model"><strong>表模型</strong></a></li>
+            </ul>
+                    </div>
+                    <div class="manual_nav_fix"></div>
+                
+                <div class="col-sm-12  manual_right  col-sm-9">
+                    <iframe id="manual_iframe" name="manual_iframe" scrolling="no" width="100%" style="display: none;" frameborder="0" src="about:blank"></iframe>
+                    <div class="panel panel-collapse panel-primary">
+                        <div class="panel-heading">
+                            表单验证                        </div>
+                        <div class="panel-body">
+                            <pre style="border:none;background:none;">
+我们平时处理表单数据，一般包含以下三步：
+1.获取数据
+2.检验数据合法性
+3.根据业务逻辑保存数据
+在MicroPHP里面，下面的方法分别对应上面前两个步骤。
+<b>1.获取数据</b>
+  在控制器和模型里面可以通过：
+  $this->readData(Array $map, $source_data = null)，根据$map从$source_data中读取数据。
+  参数说明：
+  $map 字段映射数组,格式：array('表单name名称'=>'表字段名称',...)
+  $source_data 数据源，格式：array('表单name名称'=>'值',...),一般是$_POST。
+  最后会返回读取后的数据，格式是：array('表字段名称'=>'值',...)。
+  比如：
+  表单数据：
+  标题：$_POST['title'] = ' 文章&lt;a>xxx&lt;/a>标题 ';
+  内容：$_POST['content']='内容&lt;a>xxx&lt;/a>内容，&lt;a onclick="alert();">xxx&lt;/a>脚本&lt;script>xxxxx&lt;/script>';
+  防止跨站token：$_POST['token'] = '09adfu09adfmca09dma0';
+  标题和内容对应数据库字段：art_title,art_content
+  $map=array('title'=>'art_title','content'=>'art_content');
+  然后我们就可以通过$data=$this->readData($map,$_POST),读取到将要插入数据库的数据，当然插入之前要检验数据合法性，也就是下面第2步。
+  读到的$data=array('art_title'=>'值','art_content'=>'值')，可以看到把无关的表单字段都过滤掉了。
+<b>2.验证数据</b>
+  在控制器和模型里面可以通过：
+  $this-&gt;checkData(Array $rule, Array $data = NULL, &amp;$return_data = NULL, $db = null)进行数据验证。
+  提示：
+      验证通过返回的是NULL，验证失败返回的是错误信息。
+  参数说明：
+  $rule 验证规则，格式：array(
+                             'key1'=>array(
+                                         '规则1'=>'验证失败提示信息',
+                                          .....
+                                         '规则n'=>'验证失败提示信息'
+                                         ),
+                             ....
+                             'keyn'=>array(
+                                         '规则1'=>'验证失败提示信息',
+                                          .....
+                                         '规则n'=>'验证失败提示信息'
+                                         ),
+                        )
+    $data   需要检验的数据，一般是$this->readData()读取后的数据。
+            格式：array('key1'=>'值1',...,'keyn'=>'值n',)
+    $return_data 验证通过后，处理过的数据，这个应该是我们最终要使用的数据
+    $db     当unique和exists规则验证的数据不是当前默认的数据库连接时，可以指定使用的数据库连接对象。
+    示例：
+    继续上面1中的数据，为了安全，我们需要检验$data=array('art_title'=>'值','art_content'=>'值')
+    首先我们总结下要验证的逻辑：
+    1.标题不能为空，过滤html，剔除两边空格，长度最大50字符。
+    2.内容不能为空，要进行xss过滤。
+    那么我们的验证规则就是$rule=array(
+                                  'art_title'=>array(
+                                               'set[strip_tags,trim]'=>'',
+                                               'required'=>'标题不能为空',
+                                               'max_len[50]'=>'标题最多50字符'
+                                               ),
+                                  'art_content'=>array(
+                                               'required'=>'内容不能为空',
+                                               'set_post[CoreInput::xss_clean]'=>'',
+                                               )
+                              );
+    接着我们就可以通过规则验证$data数据了：
+    $ret_data=array();
+    $error_msg=$this->checkData($rule,$data,$ret_data);
+    if(is_null($error_msg)){
+        //验证成功，$ret_data是验证处理过的数据。
+        //do sth else
+        dump($ret_data);
+    }else{
+        //验证失败，$error_msg是提示信息
+        echo $error_msg;
+    }
+上面验证规则用到了很多规则，下面是MicroPHP支持的所有规则和用法。
+</pre>
+<table class="table table-bordered table-hover">
+	<tbody>
+		<tr>
+			<th>
+				规则名称
+			</th>
+			<th>
+				功能描述
+			</th>
+			<th>
+				举例
+			</th>
+		</tr>
+		<tr>
+			<td>
+				required
+			</td>
+			<td>
+				如果元素为空，则返回FALSE
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				default
+			</td>
+			<td>
+				当没有post对应字段的值或者值为空的时候那么就会使用默认规则的值作为该字段的值。然后用这个值继续
+                后面的规则进行验证。
+			</td>
+			<td>
+				default[默认值]
+			</td>
+		</tr>
+		<tr>
+			<td>
+				optional
+			</td>
+			<td>
+				可以为空规则。例如user字段规则中有optional,当没有传递字段user的值或者值是空的时候，
+  user验证会通过(忽略其它规则即使有required规则)，
+  提示：
+    $this-&gt;checkData($rule, $_POST, $ret_data)返回的数据$ret_data，
+    如果传递了user字段$ret_data就有user字段，反之没有user字段.
+    如果user传递有值，那么就会用这个值继续后面的规则进行验证。
+			</td>
+			<td>
+				<br />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				match
+			</td>
+			<td>
+				如果表单元素的值与参数中对应的表单字段的值不相等，则返回FALSE
+			</td>
+			<td>
+				match[password2]
+			</td>
+		</tr>
+		<tr>
+			<td>
+				equal
+			</td>
+			<td>
+				如果表单元素的值不与指定的值相等，则返回FALSE
+			</td>
+			<td>
+				equal[snail]
+			</td>
+		</tr>
+		<tr>
+			<td>
+				enum
+			</td>
+			<td>
+				如果表单元素值不在指定的几个值中，则返回FALSE
+			</td>
+			<td>
+				enum[0,1]
+			</td>
+		</tr>
+		<tr>
+			<td>
+				unique
+			</td>
+			<td>
+				如果表单元素的值与指定数据表栏位有重复，则返回False（注：比如unique[user.email]，那么验证类会去查找user表中email字段有没有与表单元素一样的值，如存重复，则返回false，这样开发者就不必另写callback验证代码。如果指定了id:1,那么除了id为1之外的记录的email字段不能与表单元素一样，如果一样返回false）<br/>
+unique[table.field,id:1],其中的id:1支持变量。<br/>
+  比如：id:#user_id,<br/>
+  那么就会使用get或者post的user_id内容作为id内容。
+			</td>
+			<td>
+				unique[table.field]<br />
+unique[table.field,id:1]
+			</td>
+		</tr>
+		<tr>
+			<td>
+				exists
+			</td>
+			<td>
+				规则说明：<br/>
+       (1).如果表单元素的值在指定数据表的字段中不存在则返回false，如果存在返回true<br/>
+       (2).比如exists[cat.cid]，那么验证类会去查找cat表中cid字段有没有与表单元素一样的值<br/>
+       (3).cat.cid，cat是表名称（不要带前缀）cid是字段名称。<br/>
+         cat.cid后面还可以指定附加的where条件。<br/>
+         比如：exists[users.uname,user_id:2,...] 可以多个条件，逗号分割。<br/>
+         上面的规则生成的where条件就是array('uname'=>$value,'user_id'=>2,....)
+         exists[table.field,id:1],其中的id:1支持变量。<br/>
+  比如：id:#user_id,<br/>
+  那么就会使用get或者post的user_id内容作为id内容。
+			</td>
+			<td>
+				exists[table.field]<br />
+exists[table.field,id:1]<br />
+exists[table.field,id:#id]
+			</td>
+		</tr>
+		<tr>
+			<td>
+				min_len
+			</td>
+			<td>
+				如果表单元素值的字符长度小于参数定义的值，则返回FALSE
+			</td>
+			<td>
+				min_len[8]
+			</td>
+		</tr>
+		<tr>
+			<td>
+				max_len
+			</td>
+			<td>
+				如果表单元素值的字符长度大于参数定义的值，则返回FALSE
+			</td>
+			<td>
+				max_len[8]
+			</td>
+		</tr>
+		<tr>
+			<td>
+				range_len
+			</td>
+			<td>
+				如果表单元素值的字符长度不在指定的范围，则返回FALSE
+			</td>
+			<td>
+				range_len[6,16]
+			</td>
+		</tr>
+		<tr>
+			<td>
+				len
+			</td>
+			<td>
+				如果表单元素值的字符长度不是指定的长度，则返回FALSE
+			</td>
+			<td>
+				len[8]
+			</td>
+		</tr>
+		<tr>
+			<td>
+				min
+			</td>
+			<td>
+				如果表单元素值不是数字或者小于指定的值，则返回FALSE
+			</td>
+			<td>
+				min[8]
+			</td>
+		</tr>
+		<tr>
+			<td>
+				max
+			</td>
+			<td>
+				如果表单元素值不是数字或者大于指定的值，则返回FALSE
+			</td>
+			<td>
+				max[8]
+			</td>
+		</tr>
+		<tr>
+			<td>
+				range
+			</td>
+			<td>
+				如果表单元素值不是数字或者大小不在指定的范围内，则返回 FALSE
+			</td>
+			<td>
+				range[1,10]
+			</td>
+		</tr>
+		<tr>
+			<td>
+				alpha
+			</td>
+			<td>
+				如果表单元素中包含除字母以外的字符，则返回FALSE
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				alpha_num
+			</td>
+			<td>
+				如果表单元素中包含除字母和数字以外的字符，则返回FALSE
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				alpha_dash
+			</td>
+			<td>
+				如果表单元素值中包含除字母/数字/下划线/破折号以外的其他字符，则返回FALSE
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				alpha_start
+			</td>
+			<td>
+				如果表单元素中不是字母开头，则返回FALSE
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				num
+			</td>
+			<td>
+				如果表单元素中不是纯数字，则返回FALSE
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				int
+			</td>
+			<td>
+				如果表单元素中不是整数，则返回FALSE
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				float
+			</td>
+			<td>
+				如果表单元素中不是小数，则返回FALSE
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				numeric
+			</td>
+			<td>
+				如果表单元素中不是一个数，则返回FALSE
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				natural
+			</td>
+			<td>
+				如果表单元素值中包含了非自然数的其他数值 （其他数值不包括零），则返回FALSE。自然数形如：0,1,2,3....等等。
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				natural_no_zero
+			</td>
+			<td>
+				如果表单元素值包含了非自然数的其他数值 （其他数值包括零），则返回FALSE。非零的自然数：1,2,3.....等等。
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				email
+			</td>
+			<td>
+				如果表单元素值包含不合法的email地址，则返回FALSE
+			</td>
+			<td>
+				email 必须是email，不能为空<br />
+email[true] 必须是email，可以为空
+			</td>
+		</tr>
+		<tr>
+			<td>
+				url
+			</td>
+			<td>
+				如果表单元素值不是一个网址，则返回FALSE
+			</td>
+			<td>
+				url 必须是url，不能为空<br />
+url[true] 必须是url，可以为空
+			</td>
+		</tr>
+		<tr>
+			<td>
+				qq
+			</td>
+			<td>
+				如果表单元素值不是一个QQ号，则返回FALSE
+			</td>
+			<td>
+				qq  必须是qq，不能为空<br />
+qq[true] 必须是qq，可以为空
+			</td>
+		</tr>
+		<tr>
+			<td>
+				phone
+			</td>
+			<td>
+				如果表单元素值不是一个电话号码，则返回FALSE
+			</td>
+			<td>
+				phone 必须是电话号码，不能为空<br />
+phone[true] 必须是电话号码，可以为空
+			</td>
+		</tr>
+		<tr>
+			<td>
+				mobile
+			</td>
+			<td>
+				如果表单元素值不是一个手机号，则返回FALSE
+			</td>
+			<td>
+				mobile 必须是手机号，不能为空<br />
+mobile[true] 必须是手机号，可以为空
+			</td>
+		</tr>
+		<tr>
+			<td>
+				zipcode
+			</td>
+			<td>
+				如果表单元素值不是一个邮政编码，则返回FALSE
+			</td>
+			<td>
+				zipcode 必须是邮政编码，不能为空<br />
+zipcode[true] 必须是邮政编码，可以为空
+			</td>
+		</tr>
+		<tr>
+			<td>
+				idcard
+			</td>
+			<td>
+				如果表单元素值不是一个身份证号，则返回FALSE
+			</td>
+			<td>
+				idcard 必须是身份证号，不能为空<br />
+idcard[true] 必须是身份证号，可以为空
+			</td>
+		</tr>
+		<tr>
+			<td>
+				ip
+			</td>
+			<td>
+				如果表单元素值不是一个合法的IPv4地址，则返回FALSE。
+			</td>
+			<td>
+				ip 必须是IPv4地址，不能为空<br />
+ip[true] 必须是IPv4地址，可以为空
+			</td>
+		</tr>
+		<tr>
+			<td>
+				chs
+			</td>
+			<td>
+				如果表单元素值不是汉字，或者不是指定的长度，则返回FALSE
+			</td>
+			<td>
+				chs 必须是汉字不能为空<br />
+chs[false] 必须是汉字，不能为空<br />
+chs[true] 必须是汉字，可以为空<br />
+chs[false,2] 必须是2个汉字，不能为空<br />
+chs[true,2] 必须是2个汉字，可以为空<br />
+chs[true,2,3] 必须是2-3个汉字，可以为空<br />
+chs[false,2,] 必须是2个以上汉字，不能为空
+			</td>
+		</tr>
+		<tr>
+			<td>
+				date
+			</td>
+			<td>
+				如果表单元素值不是正确的日期格式YYYY-MM-DD，则返回FALSE
+			</td>
+			<td>
+				date 必须是正确的日期格式，不能为空<br />
+date[true] 必须是正确的日期格式，可以为空
+			</td>
+		</tr>
+		<tr>
+			<td>
+				time
+			</td>
+			<td>
+				如果表单元素值不是正确的时间格式HH:MM:SS，则返回FALSE
+			</td>
+			<td>
+				time 必须是正确的时间格式，不能为空<br />
+time[true] 必须是正确的时间格式，可以为空
+			</td>
+		</tr>
+		<tr>
+			<td>
+				datetime
+			</td>
+			<td>
+				如果表单元素值不是正确的日期时间格式YYYY-MM-DD HH:MM:SS，则返回FALSE
+			</td>
+			<td>
+				datetime 必须是正确的日期时间格式，不能为空<br />
+datetime[true] 必须是正确的日期时间格式，可以为空
+			</td>
+		</tr>
+		<tr>
+			<td>
+				reg
+			</td>
+			<td>
+				如果表单元素值不匹配指定的正则表达式，则返回FALSE
+			</td>
+			<td>
+				reg[/^[]]$/]<br />
+reg[/^A$/i]<br />
+模式修正符说明:<br />
+i 表示在和模式进行匹配进不区分大小写<br />
+m 将模式视为多行，使用^和$表示任何一行都可以以正则表达式开始或结束<br />
+s 如果没有使用这个模式修正符号，元字符中的"."默认不能表示换行符号,将字符串视为单行<br />
+x 表示模式中的空白忽略不计<br />
+e 正则表达式必须使用在preg_replace替换字符串的函数中时才可以使用(讲这个函数时再说)<br />
+A 以模式字符串开头，相当于元字符^<br />
+Z 以模式字符串结尾，相当于元字符$<br />
+U 正则表达式的特点：就是比较“贪婪”，使用该模式修正符可以取消贪婪模式
+			</td>
+		</tr>
+		<tr>
+			<td>
+				set<br />
+set_post
+			</td>
+			<td>
+				如果设置了set，数据在验证的时候验证的是处理过的数据<br />
+如果设置了set_post，可以通过第三个参数$data接收数据：$this-&gt;checkData($rule, $_POST, $data)，$data是验证通过并经过set_post处理后的数据<br />
+set和set_post后面是一个或者多个函数或者方法，多个逗号分割<br />
+注意：<br />
+1.无论是函数或者方法都必须有一个字符串返回<br />
+2.如果是系统函数，系统会传递当前值给系统函数，因此系统函数必须是至少接受一个字符串参数<br />
+3.如果是自定义的函数，系统会传递当前值和全部数据给自定义的函数，因此自定义函数可以接收两个参数第一个是值，第二个是全部数据$data<br />
+4.如果是类的方法写法是：类名称::方法名 （方法静态动态都可以，public，private，都可以）
+			</td>
+			<td>
+				set[trim]<br />
+set_post[sha1,md5]
+			</td>
+		</tr>
+		<tr>
+			<td>
+				参数默认分割符
+			</td>
+			<td>
+				参数默认分割符是逗号, 可以改变这个符号，通过在]后面指定即可。
+			</td>
+			<td>
+				range[3#5]#   使用#分割参数
+			</td>
+		</tr>
+		<tr>
+			<td>
+				自定义的函数<br />
+类方法<br />
+系统函数
+			</td>
+			<td>
+				1.无论是函数或者方法都必须有一个字符串返回<br />
+2.如果是系统函数，系统会传递当前值给系统函数，因此系统函数必须是至少接受一个字符串参数<br />
+3.如果是自定义的函数，系统会传递当前值和全部数据给自定义的函数，因此自定义函数可以接收两个参数第一个是值，第二个是全部数据$data<br />
+4.如果是类的方法写法是：类名称::方法名 （方法静态动态都可以，public，private，都可以）
+			</td>
+			<td>
+				callForTest callForTest接收的第一个参数是表单元素值，第二个是全部表单数据<br />
+callForTest [3] callForTest接收的第三个参数就是3<br />
+Test_validator::callForTest[3] callForTest接收的第三个参数就是3<br />
+md5
+			</td>
+		</tr>
+	</tbody>
+</table>                        </div>
+                    </div>
+                                    </div>
+                <div class="clearfix visible-xs"></div>
+            </div>
+            </div><!--body container end-->
+<div class="copyright">
+    <div class="container center-block">
+        <p>Powered By <a target="_blank" href="http://www.host900.com/">狂奔的蜗牛</a>
+            | <a href="http://git.oschina.net/snail/microphp/tags" target="_blank">历史版本</a>
+            | <a href="http://git.oschina.net/snail/microphp/tree/development/modules"target="_blank">源代码</a>
+            | <a href="?in.action/8">快速入门</a>
+            | <a href="http://www.oschina.net/p/microphp">MicroPHP@开源中国</a></p>
+        <p>源代码许可证 <a target="_blank" href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License v2.0</a></p>
+        <p>MicroPHP官方QQ交流群 : 42807575 , 有问题欢迎加群交流</p>
+    </div>
+</div>
+<div id="gotoTop" title="返回顶部"></div>
+            <script type="text/javascript">
+    var duoshuoQuery = {short_name: "microphp"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+                || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<script src="public/ui/jquery.js"></script><script src="public/ui/js/bootstrap.min.js"></script><script src="public/microphp_res/js/buttons.js"></script><script src="public/microphp_res/js/run_prettify.js"></script><script src="public/microphp_res/js/scroll.js"></script><script src="public/microphp_res/js/style.js?ver=2.8"></script><div style="display: none;"><script type="text/javascript">
+    var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F25dc3c6d2187c5da81c6269c209aa726' type='text/javascript'%3E%3C/script%3E"));
+    </script></div>                </body>
+</html>

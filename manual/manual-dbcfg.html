@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>数据库配置_MicroPHP手册_MicroPHP_真正的敏捷PHP开发框架</title>
+        <meta name="keywords" content="数据库配置,MicroPHP,PHP框架,PHP开发,PHP敏捷开发"/>
+        <meta name="description" content="
+1.数据库配置
+数据库驱动目前支持mysql,mysqli,pdo,sqlite3（php5.3以后建议用pdo或者mysqli连接mysql数据库）
+数据库配置可以有多组，每组可以连接到不同的数据库。
+$system['db']['xxxx']其中键xxxx就是组名称，相同的键就是一组。
+可以通过：
+$system['db']['active_group'] = 'xxxx';
+,MicroPHP是一个免费、开源、敏捷的MVC模式的PHP开发框架。它易拓展而不失灵活，可以轻松对应大中小型项目。MicroPHP没有大而全的功能，只给你最需要的底层功能，但是给你无限的灵活拓展能力。"/>
+        <link rel="icon" href="public/microphp_res/images/favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="public/microphp_res/images/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" href="public/ui/css/bootstrap.min.css"/><link rel="stylesheet" href="public/ui/css/bootstrap-theme.min.css"/><link rel="stylesheet" href="public/microphp_res/css/buttons.css"/><link rel="stylesheet" href="public/microphp_res/css/style.css?ver=2.4"/>    </head>
+    <body  class="">
+        <div><!--body container start-->
+                <div class="container ">
+            <div class="row">
+                                    <div class="col-sm-12 col-md-3 manual_left">
+                            <script>var html = true;</script>
+    <ul class="nav nav-pills nav-stacked nav-list nav_manual">
+        <h2><small><i class="glyphicon glyphicon-list"></i></small>目录</h2>
+                <li><a class="" href="manual-about_microphp.html" key="about_microphp"><strong>MicroPHP详细介绍</strong></a></li>
+                <li><a class="" href="manual-sysconfig.html" key="sysconfig"><strong>系统配置说明</strong></a></li>
+                <li><a class="" href="manual-form_validator.html" key="form_validator"><strong>表单验证</strong></a></li>
+                <li><a class="" href="manual-error_control.html" key="error_control"><strong>错误控制</strong></a></li>
+                <li><a class="" href="manual-sys_functions.html" key="sys_functions"><strong>系统函数</strong></a></li>
+                <li><a class="" href="manual-database_manual.html" key="database_manual"><strong>数据库手册</strong></a></li>
+                <li><a class="" href="manual-output.html" key="output"><strong>输出</strong></a></li>
+                <li><a class="" href="manual-config.html" key="config"><strong>获取配置</strong></a></li>
+                <li><a class="" href="manual-library.html" key="library"><strong>使用类库</strong></a></li>
+                <li><a class="" href="manual-view.html" key="view"><strong>使用视图</strong></a></li>
+                <li><a class="" href="manual-router.html" key="router"><strong>URL路由</strong></a></li>
+                <li><a class="" href="manual-console.html" key="console"><strong>命令行下的MicroPHP</strong></a></li>
+                <li><a class="" href="manual-plugin.html" key="plugin"><strong>插件模式</strong></a></li>
+                <li><a class="" href="manual-core_ext.html" key="core_ext"><strong>拓展核心</strong></a></li>
+                <li><a class="" href="manual-cache.html" key="cache"><strong>缓存</strong></a></li>
+                <li><a class="" href="manual-autoload.html" key="autoload"><strong>自动加载</strong></a></li>
+                <li><a class="" href="manual-helper.html" key="helper"><strong>helper文件</strong></a></li>
+                <li><a class="active" href="manual-dbcfg.html" key="dbcfg"><strong>数据库配置</strong></a></li>
+                <li><a class="" href="manual-database.html" key="database"><strong>连接数据库</strong></a></li>
+                <li><a class="" href="manual-model.html" key="model"><strong>使用模型</strong></a></li>
+                <li><a class="" href="manual-controller.html" key="controller"><strong>控制器</strong></a></li>
+                <li><a class="" href="manual-name.html" key="name"><strong>命名规则</strong></a></li>
+                <li><a class="" href="manual-pagebar.html" key="pagebar"><strong>分页条</strong></a></li>
+                <li><a class="" href="manual-hmvc.html" key="hmvc"><strong>HMVC模式</strong></a></li>
+                <li><a class="" href="manual-input.html" key="input"><strong>Input输入_获取输入数据</strong></a></li>
+                <li><a class="" href="manual-table_model.html" key="table_model"><strong>表模型</strong></a></li>
+            </ul>
+                    </div>
+                    <div class="manual_nav_fix"></div>
+                
+                <div class="col-sm-12  manual_right  col-sm-9">
+                    <iframe id="manual_iframe" name="manual_iframe" scrolling="no" width="100%" style="display: none;" frameborder="0" src="about:blank"></iframe>
+                    <div class="panel panel-collapse panel-primary">
+                        <div class="panel-heading">
+                            数据库配置                        </div>
+                        <div class="panel-body">
+                            <pre style="border:none;background:none;">
+<strong>1.数据库配置</strong>
+数据库驱动目前支持mysql,mysqli,pdo,sqlite3（php5.3以后建议用pdo或者mysqli连接mysql数据库）
+数据库配置可以有多组，每组可以连接到不同的数据库。
+$system['db']['xxxx']其中键xxxx就是组名称，相同的键就是一组。
+可以通过：
+$system['db']['active_group'] = 'xxxx';
+设置默认的数据库配置组。默认的组就是$this-&gt;database()默认使用的配置。
+下面给出每个驱动的数据库配置实例：
+<strong>1.1&nbsp;mysql驱动配置示例</strong>
+mysqli驱动配置和mysql驱动配置一样，只是dbriver要设置为mysqli。
+下面的这组配置组名称就是<b>default</b>
+</pre>
+<pre class="prettyprint lang-php">//mysql驱动配置示例
+$system['db']['default']['dbdriver'] = "mysql";
+$system['db']['default']['hostname'] = 'localhost';
+$system['db']['default']['port'] = '3306';
+$system['db']['default']['username'] = 'root';
+$system['db']['default']['password'] = 'admin';
+$system['db']['default']['database'] = 'test';
+$system['db']['default']['dbprefix'] = '';
+$system['db']['default']['pconnect'] = TRUE;
+$system['db']['default']['db_debug'] = TRUE;
+$system['db']['default']['char_set'] = 'utf8';
+$system['db']['default']['dbcollat'] = 'utf8_general_ci';
+$system['db']['default']['swap_pre'] = '';
+$system['db']['default']['autoinit'] = TRUE;
+$system['db']['default']['stricton'] = FALSE;
+</pre>
+<h3 style="font-size:16px;font-weight:500;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;color:#333333;background-color:#FFFFFF;">
+	参数解析:
+</h3>
+<ul style="color:#333333;font-size:14px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;background-color:#FFFFFF;">
+	<li>
+		<strong>hostname</strong>&nbsp;- 数据库的主机名，通常位于本机，可以表示为 "localhost".
+	</li>
+	<li>
+		<strong>username</strong>&nbsp;- 需要连接到数据库的用户名.
+	</li>
+	<li>
+		<strong>password</strong>&nbsp;- 登陆数据库的密码.
+	</li>
+	<li>
+		<strong>database</strong>&nbsp;- 你需要连接的数据库名.
+	</li>
+	<li>
+		<strong>dbdriver</strong>&nbsp;- 数据库类型。可用的有mysql,mysqli,pdo,sqlite3。必须为小写字母。
+	</li>
+	<li>
+		<strong>dbprefix</strong>&nbsp;- 当运行Active Record查询时数据表的前缀.
+	</li>
+	<li>
+		<strong>pconnect</strong>&nbsp;- TRUE/FALSE (boolean) - 使用持续连接.
+	</li>
+	<li>
+		<strong>db_debug</strong>&nbsp;- TRUE/FALSE (boolean) - 显示数据库错误信息.
+	</li>
+	<li>
+		<strong>char_set</strong>&nbsp;- 与数据库通信时所使用的字符集。
+	</li>
+	<li>
+		<strong>dbcollat</strong>&nbsp;- 与数据库通信时所使用的字符规则。
+	</li>
+	<li>
+		<strong>swap_pre</strong>&nbsp;- 替换默认的dbprefix表前缀，该项设置对于分布式应用是非常有用的，你可以在查询中使用由最终用户定制的表前缀。
+	</li>
+	<p>
+		<strong>注:&nbsp;</strong>如果设置了 $db['default']['dbprefix'] 的值 同时也设置了 $db['default']['swap_pre'] 的值，则会将查询代码中和$db['default']['swap_pre'] 的值一致的字符替换成 $db['default']['dbprefix'] 的值，如果没有设置 $db['default']['swap_pre'] 值，就直接在数据库表名前面加上 $db['default']['dbprefix'] 值。 <br />
+比如我们这样配置：<br />
+$db['default']['dbprefix'] = "feed_"; <br />
+$db['default']['swap_pre'] = "{PRE}"; <br />
+然后我们进行如下查询：<br />
+$sql = "SELECT * FROM {PRE}item"; <br />
+$query = $this-&gt;db-&gt;query($sql); <br />
+查询时{PRE}就会被替换为feed_.
+	</p>
+	<li>
+		<strong>autoinit</strong>&nbsp;- 当数据库类库(database library)被载入的时候是否需要自动连接数据库，如果设置为FALSE，将在首次查询前进行连接。
+	</li>
+	<li>
+		<strong>stricton</strong>&nbsp;- TRUE/FALSE (boolean) - 是否强制使用 "Strict Mode" 连接, 在开发程序时，使用 strict SQL 是一个好习惯。
+	</li>
+	<li>
+		<strong>port</strong>&nbsp;- 数据库端口号. 要使用这个值，你应该添加一行代码到数据库配置数组。
+	</li>
+</ul>
+<strong>1.2 PDO驱动配置示例</strong><br />
+下面的这组配置组名称就是<b>pdo_mysql</b>
+<pre class="prettyprint lang-php">/**
+ * PDO mysql数据库配置示例，hostname 其实就是pdo的dsn部分，
+ * 如果连接其它数据库按着pdo的dsn写法连接即可
+ */
+$system['db']['pdo_mysql']['dbdriver'] = "pdo";
+$system['db']['pdo_mysql']['hostname'] = 'mysql:host=localhost;port=3306';
+$system['db']['pdo_mysql']['username'] = 'root';
+$system['db']['pdo_mysql']['password'] = 'admin';
+$system['db']['pdo_mysql']['database'] = 'test';
+$system['db']['pdo_mysql']['dbprefix'] = '';
+$system['db']['pdo_mysql']['db_debug'] = TRUE;
+$system['db']['pdo_mysql']['char_set'] = 'utf8';
+$system['db']['pdo_mysql']['dbcollat'] = 'utf8_general_ci';
+$system['db']['pdo_mysql']['swap_pre'] = '';
+$system['db']['pdo_mysql']['autoinit'] = TRUE;
+$system['db']['pdo_mysql']['stricton'] = FALSE;</pre>
+<strong>1.3 SQLite3驱动配置示例</strong> 
+下面的这组配置组名称就是<b>sqlite3</b>
+<pre class="prettyprint lang-php">//sqlite3数据库配置示例
+$system['db']['sqlite3']['dbdriver'] = "sqlite3";
+$system['db']['sqlite3']['database'] = 'sqlite:d:/wwwroot/sdb.db';
+$system['db']['sqlite3']['dbprefix'] = '';
+$system['db']['sqlite3']['db_debug'] = TRUE;
+$system['db']['sqlite3']['char_set'] = 'utf8';
+$system['db']['sqlite3']['dbcollat'] = 'utf8_general_ci';
+$system['db']['sqlite3']['swap_pre'] = '';
+$system['db']['sqlite3']['autoinit'] = TRUE;
+$system['db']['sqlite3']['stricton'] = FALSE;</pre>
+<br />                        </div>
+                    </div>
+                                    </div>
+                <div class="clearfix visible-xs"></div>
+            </div>
+            </div><!--body container end-->
+<div class="copyright">
+    <div class="container center-block">
+        <p>Powered By <a target="_blank" href="http://www.host900.com/">狂奔的蜗牛</a>
+            | <a href="http://git.oschina.net/snail/microphp/tags" target="_blank">历史版本</a>
+            | <a href="http://git.oschina.net/snail/microphp/tree/development/modules"target="_blank">源代码</a>
+            | <a href="?in.action/8">快速入门</a>
+            | <a href="http://www.oschina.net/p/microphp">MicroPHP@开源中国</a></p>
+        <p>源代码许可证 <a target="_blank" href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License v2.0</a></p>
+        <p>MicroPHP官方QQ交流群 : 42807575 , 有问题欢迎加群交流</p>
+    </div>
+</div>
+<div id="gotoTop" title="返回顶部"></div>
+            <script type="text/javascript">
+    var duoshuoQuery = {short_name: "microphp"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+                || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<script src="public/ui/jquery.js"></script><script src="public/ui/js/bootstrap.min.js"></script><script src="public/microphp_res/js/buttons.js"></script><script src="public/microphp_res/js/run_prettify.js"></script><script src="public/microphp_res/js/scroll.js"></script><script src="public/microphp_res/js/style.js?ver=2.8"></script><div style="display: none;"><script type="text/javascript">
+    var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F25dc3c6d2187c5da81c6269c209aa726' type='text/javascript'%3E%3C/script%3E"));
+    </script></div>                </body>
+</html>

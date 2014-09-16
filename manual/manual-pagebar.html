@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>分页条_MicroPHP手册_MicroPHP_真正的敏捷PHP开发框架</title>
+        <meta name="keywords" content="分页条,MicroPHP,PHP框架,PHP开发,PHP敏捷开发"/>
+        <meta name="description" content="
+	一个标准的分页条由下面6部分组成，这个分页条可以在控制器或者模型里面用$this-&gt;page()生成。
+
+
+	1共4692条 2第6/157页 3 首页  上页 4 1  2  3  4  5 6 7  8  9  10  11 5 下页  尾页 &nbsp; 6转到
+
+说明如下：
+方法定义：
+page($total, $page, $pagesize, $url,$order=arr,MicroPHP是一个免费、开源、敏捷的MVC模式的PHP开发框架。它易拓展而不失灵活，可以轻松对应大中小型项目。MicroPHP没有大而全的功能，只给你最需要的底层功能，但是给你无限的灵活拓展能力。"/>
+        <link rel="icon" href="public/microphp_res/images/favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="public/microphp_res/images/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" href="public/ui/css/bootstrap.min.css"/><link rel="stylesheet" href="public/ui/css/bootstrap-theme.min.css"/><link rel="stylesheet" href="public/microphp_res/css/buttons.css"/><link rel="stylesheet" href="public/microphp_res/css/style.css?ver=2.4"/>    </head>
+    <body  class="">
+        <div><!--body container start-->
+                <div class="container ">
+            <div class="row">
+                                    <div class="col-sm-12 col-md-3 manual_left">
+                            <script>var html = true;</script>
+    <ul class="nav nav-pills nav-stacked nav-list nav_manual">
+        <h2><small><i class="glyphicon glyphicon-list"></i></small>目录</h2>
+                <li><a class="" href="manual-about_microphp.html" key="about_microphp"><strong>MicroPHP详细介绍</strong></a></li>
+                <li><a class="" href="manual-sysconfig.html" key="sysconfig"><strong>系统配置说明</strong></a></li>
+                <li><a class="" href="manual-form_validator.html" key="form_validator"><strong>表单验证</strong></a></li>
+                <li><a class="" href="manual-error_control.html" key="error_control"><strong>错误控制</strong></a></li>
+                <li><a class="" href="manual-sys_functions.html" key="sys_functions"><strong>系统函数</strong></a></li>
+                <li><a class="" href="manual-database_manual.html" key="database_manual"><strong>数据库手册</strong></a></li>
+                <li><a class="" href="manual-output.html" key="output"><strong>输出</strong></a></li>
+                <li><a class="" href="manual-config.html" key="config"><strong>获取配置</strong></a></li>
+                <li><a class="" href="manual-library.html" key="library"><strong>使用类库</strong></a></li>
+                <li><a class="" href="manual-view.html" key="view"><strong>使用视图</strong></a></li>
+                <li><a class="" href="manual-router.html" key="router"><strong>URL路由</strong></a></li>
+                <li><a class="" href="manual-console.html" key="console"><strong>命令行下的MicroPHP</strong></a></li>
+                <li><a class="" href="manual-plugin.html" key="plugin"><strong>插件模式</strong></a></li>
+                <li><a class="" href="manual-core_ext.html" key="core_ext"><strong>拓展核心</strong></a></li>
+                <li><a class="" href="manual-cache.html" key="cache"><strong>缓存</strong></a></li>
+                <li><a class="" href="manual-autoload.html" key="autoload"><strong>自动加载</strong></a></li>
+                <li><a class="" href="manual-helper.html" key="helper"><strong>helper文件</strong></a></li>
+                <li><a class="" href="manual-dbcfg.html" key="dbcfg"><strong>数据库配置</strong></a></li>
+                <li><a class="" href="manual-database.html" key="database"><strong>连接数据库</strong></a></li>
+                <li><a class="" href="manual-model.html" key="model"><strong>使用模型</strong></a></li>
+                <li><a class="" href="manual-controller.html" key="controller"><strong>控制器</strong></a></li>
+                <li><a class="" href="manual-name.html" key="name"><strong>命名规则</strong></a></li>
+                <li><a class="active" href="manual-pagebar.html" key="pagebar"><strong>分页条</strong></a></li>
+                <li><a class="" href="manual-hmvc.html" key="hmvc"><strong>HMVC模式</strong></a></li>
+                <li><a class="" href="manual-input.html" key="input"><strong>Input输入_获取输入数据</strong></a></li>
+                <li><a class="" href="manual-table_model.html" key="table_model"><strong>表模型</strong></a></li>
+            </ul>
+                    </div>
+                    <div class="manual_nav_fix"></div>
+
+                <div class="col-sm-12  manual_right  col-sm-9">
+                    <iframe id="manual_iframe" name="manual_iframe" scrolling="no" width="100%" style="display: none;" frameborder="0" src="about:blank"></iframe>
+                    <div class="panel panel-collapse panel-primary">
+                        <div class="panel-heading">
+                            分页条                        </div>
+                        <div class="panel-body">
+                            <p>
+	一个标准的分页条由下面6部分组成，这个分页条可以在控制器或者模型里面用$this-&gt;page()生成。
+</p>
+<div class="alert">
+	<b><i class="label label-success">1</i>共4692条</b> <b><i class="label label-success">2</i>第6/157页</b> <b><i class="label label-success">3</i><a href="1"> 首页 </a><a href="5"> 上页 </a></b><b><i class="label label-success">4</i><a href="1"> 1 </a><a href="2"> 2 </a><a href="3"> 3 </a><a href="4"> 4 </a><a href="5"> 5 </a><b>6</b><a href="7"> 7 </a><a href="8"> 8 </a><a href="9"> 9 </a><a href="10"> 10 </a><a href="11"> 11 </a></b><b><i class="label label-success">5</i><a href="7"> 下页 </a><a href="157"> 尾页 </a></b>&nbsp; <b><i class="label label-success">6</i><input type="text" id="gsd09fhas9d" style="width: 40px; padding: 0px 3px;"><span id="gsd09fhas9daa" style="text-decoration:underline;">转到</span></b>
+</div>
+说明如下：
+<pre>方法定义：
+page($total, $page, $pagesize, $url,$order=array(1,2,3,4,5,6),$a_count=10) {......}
+参数说明：
+   $total    一共多少记录
+   $page     当前是第几页
+   $pagesize 每页多少
+   $url      url是什么，url里面的{page}会被替换成页码
+   $order    分页条的组成，是一个数组,可以按着1-6的序号,选择分页条组成部分和每个部分的顺序
+   $a_count  分页条中a页码链接的总数量(也就是上面第4部分),不包含当前页的a标签，默认10个。
+</pre>
+示例：
+<pre>echo $this-&gt;page(100,3,10,'?article/list/{page}',array(3,4,5,1,2,6),10);</pre>
+示例将输出：
+<div class="alert">
+	<a href="?article/list/1"> 首页 </a><a href="?article/list/2"> 上页 </a>&nbsp;<a href="?article/list/1"> 1 </a><a href="?article/list/2"> 2 </a><b>3</b><a href="?article/list/4"> 4 </a><a href="?article/list/5"> 5 </a><a href="?article/list/6"> 6 </a><a href="?article/list/7"> 7 </a><a href="?article/list/8"> 8 </a><a href="?article/list/9"> 9 </a><a href="?article/list/10"> 10 </a><a href="?article/list/11"> 11 </a>&nbsp;<a href="?article/list/4"> 下页 </a><a href="?article/list/10"> 尾页 </a>&nbsp;共100条&nbsp; 第3/10页 &nbsp;<input type="text" id="gsd09fhas9d" style="width: 40px; padding: 0px 3px;"><span id="gsd09fhas9daa" style="text-decoration:underline;">转到</span>
+</div>
+<p>
+	<span style="line-height:1.5;">提示：</span>
+</p>
+<p>
+	上面的6部分，每部分被一个span包围，span都有对应的class，便于css控制。<br />
+每部分span的对应class如下：<br />
+1:page_total<br />
+2:page_cur<br />
+3:page_bar_prefix<br />
+4:page_cur_page<br />
+5:page_bar_suffix<br />
+6:page_input_num<br />
+另外：<br />
+”转到“的class是:page_btn_go
+</p>
+<p>
+	<br />
+</p>                        </div>
+                    </div>
+                                    </div>
+                <div class="clearfix visible-xs"></div>
+            </div>
+            </div><!--body container end-->
+<div class="copyright">
+    <div class="container center-block">
+        <p>Powered By <a target="_blank" href="http://www.host900.com/">狂奔的蜗牛</a>
+            | <a href="http://git.oschina.net/snail/microphp/tags" target="_blank">历史版本</a>
+            | <a href="http://git.oschina.net/snail/microphp/tree/development/modules"target="_blank">源代码</a>
+            | <a href="?in.action/8">快速入门</a>
+            | <a href="http://www.oschina.net/p/microphp">MicroPHP@开源中国</a></p>
+        <p>源代码许可证 <a target="_blank" href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License v2.0</a></p>
+        <p>MicroPHP官方QQ交流群 : 42807575 , 有问题欢迎加群交流</p>
+    </div>
+</div>
+<div id="gotoTop" title="返回顶部"></div>
+            <script type="text/javascript">
+    var duoshuoQuery = {short_name: "microphp"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+                || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<script src="public/ui/jquery.js"></script><script src="public/ui/js/bootstrap.min.js"></script><script src="public/microphp_res/js/buttons.js"></script><script src="public/microphp_res/js/run_prettify.js"></script><script src="public/microphp_res/js/scroll.js"></script><script src="public/microphp_res/js/style.js?ver=2.8"></script><div style="display: none;"><script type="text/javascript">
+    var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F25dc3c6d2187c5da81c6269c209aa726' type='text/javascript'%3E%3C/script%3E"));
+    </script></div>                </body>
+</html>

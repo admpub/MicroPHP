@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>错误控制_MicroPHP手册_MicroPHP_真正的敏捷PHP开发框架</title>
+        <meta name="keywords" content="错误控制,MicroPHP,PHP框架,PHP开发,PHP敏捷开发"/>
+        <meta name="description" content="
+MicroPHP中和错误相关的系统配置：
+1.$system['debug'] = TRUE;
+说明：
+   是否开启调试模式，true：显示错误信息,false：所有错误将不显示
+2.$system['error_manage'] = FALSE;
+说明：
+   是否接管错误信息显示，true：所有错误信息将由系统格式化输出，false：所有错误信息将原样输出
+3.$syste,MicroPHP是一个免费、开源、敏捷的MVC模式的PHP开发框架。它易拓展而不失灵活，可以轻松对应大中小型项目。MicroPHP没有大而全的功能，只给你最需要的底层功能，但是给你无限的灵活拓展能力。"/>
+        <link rel="icon" href="public/microphp_res/images/favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="public/microphp_res/images/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" href="public/ui/css/bootstrap.min.css"/><link rel="stylesheet" href="public/ui/css/bootstrap-theme.min.css"/><link rel="stylesheet" href="public/microphp_res/css/buttons.css"/><link rel="stylesheet" href="public/microphp_res/css/style.css?ver=2.4"/>    </head>
+    <body  class="">
+        <div><!--body container start-->
+                <div class="container ">
+            <div class="row">
+                                    <div class="col-sm-12 col-md-3 manual_left">
+                            <script>var html = true;</script>
+    <ul class="nav nav-pills nav-stacked nav-list nav_manual">
+        <h2><small><i class="glyphicon glyphicon-list"></i></small>目录</h2>
+                <li><a class="" href="manual-about_microphp.html" key="about_microphp"><strong>MicroPHP详细介绍</strong></a></li>
+                <li><a class="" href="manual-sysconfig.html" key="sysconfig"><strong>系统配置说明</strong></a></li>
+                <li><a class="" href="manual-form_validator.html" key="form_validator"><strong>表单验证</strong></a></li>
+                <li><a class="active" href="manual-error_control.html" key="error_control"><strong>错误控制</strong></a></li>
+                <li><a class="" href="manual-sys_functions.html" key="sys_functions"><strong>系统函数</strong></a></li>
+                <li><a class="" href="manual-database_manual.html" key="database_manual"><strong>数据库手册</strong></a></li>
+                <li><a class="" href="manual-output.html" key="output"><strong>输出</strong></a></li>
+                <li><a class="" href="manual-config.html" key="config"><strong>获取配置</strong></a></li>
+                <li><a class="" href="manual-library.html" key="library"><strong>使用类库</strong></a></li>
+                <li><a class="" href="manual-view.html" key="view"><strong>使用视图</strong></a></li>
+                <li><a class="" href="manual-router.html" key="router"><strong>URL路由</strong></a></li>
+                <li><a class="" href="manual-console.html" key="console"><strong>命令行下的MicroPHP</strong></a></li>
+                <li><a class="" href="manual-plugin.html" key="plugin"><strong>插件模式</strong></a></li>
+                <li><a class="" href="manual-core_ext.html" key="core_ext"><strong>拓展核心</strong></a></li>
+                <li><a class="" href="manual-cache.html" key="cache"><strong>缓存</strong></a></li>
+                <li><a class="" href="manual-autoload.html" key="autoload"><strong>自动加载</strong></a></li>
+                <li><a class="" href="manual-helper.html" key="helper"><strong>helper文件</strong></a></li>
+                <li><a class="" href="manual-dbcfg.html" key="dbcfg"><strong>数据库配置</strong></a></li>
+                <li><a class="" href="manual-database.html" key="database"><strong>连接数据库</strong></a></li>
+                <li><a class="" href="manual-model.html" key="model"><strong>使用模型</strong></a></li>
+                <li><a class="" href="manual-controller.html" key="controller"><strong>控制器</strong></a></li>
+                <li><a class="" href="manual-name.html" key="name"><strong>命名规则</strong></a></li>
+                <li><a class="" href="manual-pagebar.html" key="pagebar"><strong>分页条</strong></a></li>
+                <li><a class="" href="manual-hmvc.html" key="hmvc"><strong>HMVC模式</strong></a></li>
+                <li><a class="" href="manual-input.html" key="input"><strong>Input输入_获取输入数据</strong></a></li>
+                <li><a class="" href="manual-table_model.html" key="table_model"><strong>表模型</strong></a></li>
+            </ul>
+                    </div>
+                    <div class="manual_nav_fix"></div>
+                
+                <div class="col-sm-12  manual_right  col-sm-9">
+                    <iframe id="manual_iframe" name="manual_iframe" scrolling="no" width="100%" style="display: none;" frameborder="0" src="about:blank"></iframe>
+                    <div class="panel panel-collapse panel-primary">
+                        <div class="panel-heading">
+                            错误控制                        </div>
+                        <div class="panel-body">
+                            <pre style="border:none;background:none;">
+MicroPHP中和错误相关的系统配置：
+<b>1.$system['debug'] = TRUE;</b>
+说明：
+   是否开启调试模式，true：显示错误信息,false：所有错误将不显示
+<b>2.$system['error_manage'] = FALSE;</b>
+说明：
+   是否接管错误信息显示，true：所有错误信息将由系统格式化输出，false：所有错误信息将原样输出
+<b>3.$system['log_error'] = FALSE;</b>
+说明：
+   是否开启错误日志记录
+   true：开启
+         如果开启了，系统将接管错误信息输出
+         忽略system['error_manage']和$system['db']['xxx']['db_debug']的设置
+         同时务必设置自己的错误日志记录处理方法
+    false：关闭
+提示：
+数据库错误信息是否显示是由：
+$system['debug']和$system['db']['xxx']['db_debug'] =TRUE;控制的。
+只用都为TRUE时才会显示。
+<b>MicroPHP支持对php运行时错误的完全控制</b>
+1.即使是致命错误一样能捕获。
+2.错误处理完全由程序控制。
+3.在生产环境中可以把错误都输出到文件中，这样对于移动端app开发是至关重要的，因为手机app调用接口出错是无法及时看到的后端人员也无法确定错误所在，现在把错误都输入到文件，那么一看文件即可知道错误，大大减少手机端和后端排错的时间。
+4.详细的错误配置请看系统配置里面的<b>错误控制配置</b>部分。
+其他：
+1.关于<a href="?in-action.view/30" target="_blank">错误控制</a>的文章，里面详细介绍了错误控制的方法。
+<b>另外和错误相关的：</b>
+在系统配置里面有下面3个显示错误的文件配置。
+1.$system['error_page_404'] = 'application/error/error_404.php';
+说明：
+404错误文件的路径,该文件会在系统找不到相关内容时显示,
+文件里面可以使用$msg变量获取出错提示内容
+默认当访问不存在的控制器或者方法的时候，系统会显示出详细的文件路径，
+所以为了安全和友好提示，可以设置自己的404视图，安全控制提示。
+2.$system['error_page_50x'] = 'application/error/error_50x.php';
+说明：
+系统错误文件的路径,该文件会在发生Fatal错误和Exeption时显示
+文件里面可以使用$msg变量获取出错提示内容
+前提是
+$system['debug'] = TRUE;如果为FALSE页面不会有输出
+3.$system['error_page_db'] = 'application/error/error_db.php';
+说明：
+数据库错误文件的路径,该文件会在发生数据库错误时显示,
+文件里面可以使用$msg变量获取数据出错提示内容
+前提是：
+     $system['db']['xxx']['db_debug'] =TRUE;
+     $system['debug']=TRUE;
+     有一个不为TRUE页面不会有输出。
+</pre>                        </div>
+                    </div>
+                                    </div>
+                <div class="clearfix visible-xs"></div>
+            </div>
+            </div><!--body container end-->
+<div class="copyright">
+    <div class="container center-block">
+        <p>Powered By <a target="_blank" href="http://www.host900.com/">狂奔的蜗牛</a>
+            | <a href="http://git.oschina.net/snail/microphp/tags" target="_blank">历史版本</a>
+            | <a href="http://git.oschina.net/snail/microphp/tree/development/modules"target="_blank">源代码</a>
+            | <a href="?in.action/8">快速入门</a>
+            | <a href="http://www.oschina.net/p/microphp">MicroPHP@开源中国</a></p>
+        <p>源代码许可证 <a target="_blank" href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License v2.0</a></p>
+        <p>MicroPHP官方QQ交流群 : 42807575 , 有问题欢迎加群交流</p>
+    </div>
+</div>
+<div id="gotoTop" title="返回顶部"></div>
+            <script type="text/javascript">
+    var duoshuoQuery = {short_name: "microphp"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+                || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<script src="public/ui/jquery.js"></script><script src="public/ui/js/bootstrap.min.js"></script><script src="public/microphp_res/js/buttons.js"></script><script src="public/microphp_res/js/run_prettify.js"></script><script src="public/microphp_res/js/scroll.js"></script><script src="public/microphp_res/js/style.js?ver=2.8"></script><div style="display: none;"><script type="text/javascript">
+    var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F25dc3c6d2187c5da81c6269c209aa726' type='text/javascript'%3E%3C/script%3E"));
+    </script></div>                </body>
+</html>

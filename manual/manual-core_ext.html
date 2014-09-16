@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>拓展核心_MicroPHP手册_MicroPHP_真正的敏捷PHP开发框架</title>
+        <meta name="keywords" content="拓展核心,MicroPHP,PHP框架,PHP开发,PHP敏捷开发"/>
+        <meta name="description" content="
+有时候，我们需要有自己的祖先控制器或者祖先模型，在祖先控制器或祖先模型里面定制一些自己的逻辑。
+那么我们只需要两步即可实现这个：
+1. 编写自己的祖先控制器或者祖先模型，比如祖先控制器：MyController.class.php，然后把MyController.class.php放到library里面。
+MyController.class.php内容如下：
+&lt;?php
+cl,MicroPHP是一个免费、开源、敏捷的MVC模式的PHP开发框架。它易拓展而不失灵活，可以轻松对应大中小型项目。MicroPHP没有大而全的功能，只给你最需要的底层功能，但是给你无限的灵活拓展能力。"/>
+        <link rel="icon" href="public/microphp_res/images/favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="public/microphp_res/images/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" href="public/ui/css/bootstrap.min.css"/><link rel="stylesheet" href="public/ui/css/bootstrap-theme.min.css"/><link rel="stylesheet" href="public/microphp_res/css/buttons.css"/><link rel="stylesheet" href="public/microphp_res/css/style.css?ver=2.4"/>    </head>
+    <body  class="">
+        <div><!--body container start-->
+                <div class="container ">
+            <div class="row">
+                                    <div class="col-sm-12 col-md-3 manual_left">
+                            <script>var html = true;</script>
+    <ul class="nav nav-pills nav-stacked nav-list nav_manual">
+        <h2><small><i class="glyphicon glyphicon-list"></i></small>目录</h2>
+                <li><a class="" href="manual-about_microphp.html" key="about_microphp"><strong>MicroPHP详细介绍</strong></a></li>
+                <li><a class="" href="manual-sysconfig.html" key="sysconfig"><strong>系统配置说明</strong></a></li>
+                <li><a class="" href="manual-form_validator.html" key="form_validator"><strong>表单验证</strong></a></li>
+                <li><a class="" href="manual-error_control.html" key="error_control"><strong>错误控制</strong></a></li>
+                <li><a class="" href="manual-sys_functions.html" key="sys_functions"><strong>系统函数</strong></a></li>
+                <li><a class="" href="manual-database_manual.html" key="database_manual"><strong>数据库手册</strong></a></li>
+                <li><a class="" href="manual-output.html" key="output"><strong>输出</strong></a></li>
+                <li><a class="" href="manual-config.html" key="config"><strong>获取配置</strong></a></li>
+                <li><a class="" href="manual-library.html" key="library"><strong>使用类库</strong></a></li>
+                <li><a class="" href="manual-view.html" key="view"><strong>使用视图</strong></a></li>
+                <li><a class="" href="manual-router.html" key="router"><strong>URL路由</strong></a></li>
+                <li><a class="" href="manual-console.html" key="console"><strong>命令行下的MicroPHP</strong></a></li>
+                <li><a class="" href="manual-plugin.html" key="plugin"><strong>插件模式</strong></a></li>
+                <li><a class="active" href="manual-core_ext.html" key="core_ext"><strong>拓展核心</strong></a></li>
+                <li><a class="" href="manual-cache.html" key="cache"><strong>缓存</strong></a></li>
+                <li><a class="" href="manual-autoload.html" key="autoload"><strong>自动加载</strong></a></li>
+                <li><a class="" href="manual-helper.html" key="helper"><strong>helper文件</strong></a></li>
+                <li><a class="" href="manual-dbcfg.html" key="dbcfg"><strong>数据库配置</strong></a></li>
+                <li><a class="" href="manual-database.html" key="database"><strong>连接数据库</strong></a></li>
+                <li><a class="" href="manual-model.html" key="model"><strong>使用模型</strong></a></li>
+                <li><a class="" href="manual-controller.html" key="controller"><strong>控制器</strong></a></li>
+                <li><a class="" href="manual-name.html" key="name"><strong>命名规则</strong></a></li>
+                <li><a class="" href="manual-pagebar.html" key="pagebar"><strong>分页条</strong></a></li>
+                <li><a class="" href="manual-hmvc.html" key="hmvc"><strong>HMVC模式</strong></a></li>
+                <li><a class="" href="manual-input.html" key="input"><strong>Input输入_获取输入数据</strong></a></li>
+                <li><a class="" href="manual-table_model.html" key="table_model"><strong>表模型</strong></a></li>
+            </ul>
+                    </div>
+                    <div class="manual_nav_fix"></div>
+
+                <div class="col-sm-12  manual_right  col-sm-9">
+                    <iframe id="manual_iframe" name="manual_iframe" scrolling="no" width="100%" style="display: none;" frameborder="0" src="about:blank"></iframe>
+                    <div class="panel panel-collapse panel-primary">
+                        <div class="panel-heading">
+                            拓展核心                        </div>
+                        <div class="panel-body">
+                            <pre style="border:none;background:none;">
+有时候，我们需要有自己的祖先控制器或者祖先模型，在祖先控制器或祖先模型里面定制一些自己的逻辑。
+那么我们只需要两步即可实现这个：
+1. 编写自己的祖先控制器或者祖先模型，比如祖先控制器：MyController.class.php，然后把MyController.class.php放到library里面。
+MyController.class.php内容如下：
+&lt;?php
+class MyController extends CoreController{
+    protected $someVar;
+    public function __construct() {
+        parent::__construct();
+        //do your something here...
+    }
+    public function someMethod() {
+
+    }
+}
+2. 在我们写控制器的时候，可以直接继承自己的祖先控制器，比如控制器：home.php
+home.php内容如下：
+&lt;?php
+class Home extends MyController{
+    public function doTest() {
+        $this-&gt;someMethod();
+    }
+}
+使用自己的祖先模型和控制器步骤一样，只是祖先模型继承的是CoreModel，模型继承的是祖先模型。
+<b>提醒</b>：可以有多个不同祖先控制器或祖先模型，比如我们后台使用AdminController，前台使用FrontController
+这样前台的控制器都继承FrontController，后台的控制器都继承AdminController即可。
+<b>自定义Loader</b>
+自定义Loader，用于拓展框架核心功能,Loader是控制器CoreController和模型CoreModel都继承的一个类，大部分核心功能都在loader中完成。
+自定义Loader的系统配置是：
+$system['my_loader'] = '';
+这里是自定义Loader类文件的完整路径，自定义Loader文件名称和类名称必须是：类名.class.php。
+比如：$system['my_loader'] = $system['library_folder'].'/MyLoader.class.php';
+MyLoader.class.php文件里面的Loader类名就是MyLoader。
+注意：
+   1.自定义Loader必须继承CoreLoader。
+   2.一个最简单的Loader示意：(假设文件名称是：MyLoader.class.php)
+   &lt;?php
+   class MyLoader extends CoreLoader {
+        public function __construct() {
+            parent::__construct();
+
+        }
+    }
+   3.如果无需自定义Loader，留空即可。
+   4.在parent::__construct()之前，helper，model，library自动加载已经完成。
+   5.parent::__construct()会初始化：
+        1.注册错误处理
+        2.$this->router 路由信息数
+        3.$this->input  input输入类实例
+        4.$this->model  模型自动加载类实例
+        5.$this->lib    类库自动加载类实例
+        6.$this->rule   表单验规则生成类实例
+        7.$this->db     如果配置了自动加载数据库,$this->db会被初始化，反之不初始化
+        8.$this->cache  缓存类实例
+   6.在Loader中：
+     $this->lib()
+     $this->model()
+     $this->helper()
+     $this->ajax_echo()
+     $this->config()
+     $this->database()
+     $this->message()
+     $this->page()
+     $this->readData()
+     $this->checkData()
+     $this->redirect()
+     $this->setCookie()
+     $this->view()
+     $this->view_path()
+     $this->xml_echo()
+     $this->view_vars
+     均可以使用。
+   7.自定义Loader在框架核心文件被包含时生效，此后修改$system['my_loader']无效。
+</pre>                        </div>
+                    </div>
+                                    </div>
+                <div class="clearfix visible-xs"></div>
+            </div>
+            </div><!--body container end-->
+<div class="copyright">
+    <div class="container center-block">
+        <p>Powered By <a target="_blank" href="http://www.host900.com/">狂奔的蜗牛</a>
+            | <a href="http://git.oschina.net/snail/microphp/tags" target="_blank">历史版本</a>
+            | <a href="http://git.oschina.net/snail/microphp/tree/development/modules"target="_blank">源代码</a>
+            | <a href="?in.action/8">快速入门</a>
+            | <a href="http://www.oschina.net/p/microphp">MicroPHP@开源中国</a></p>
+        <p>源代码许可证 <a target="_blank" href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License v2.0</a></p>
+        <p>MicroPHP官方QQ交流群 : 42807575 , 有问题欢迎加群交流</p>
+    </div>
+</div>
+<div id="gotoTop" title="返回顶部"></div>
+            <script type="text/javascript">
+    var duoshuoQuery = {short_name: "microphp"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+                || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<script src="public/ui/jquery.js"></script><script src="public/ui/js/bootstrap.min.js"></script><script src="public/microphp_res/js/buttons.js"></script><script src="public/microphp_res/js/run_prettify.js"></script><script src="public/microphp_res/js/scroll.js"></script><script src="public/microphp_res/js/style.js?ver=2.8"></script><div style="display: none;"><script type="text/javascript">
+    var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F25dc3c6d2187c5da81c6269c209aa726' type='text/javascript'%3E%3C/script%3E"));
+    </script></div>                </body>
+</html>

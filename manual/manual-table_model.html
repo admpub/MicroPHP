@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>表模型_MicroPHP手册_MicroPHP_真正的敏捷PHP开发框架</title>
+        <meta name="keywords" content="表模型,MicroPHP,PHP框架,PHP开发,PHP敏捷开发"/>
+        <meta name="description" content="在MicroPHP里面有个CoreTableModel类，CoreTableModel继承了类CoreModel。该类封装了常用的表操作。每个类的对象都和一个具体的表绑定。
+实例化一个表模型可以通过函数table($table_name,$db=null);返回的是CoreTableModel类对象，CoreTableModel类继承了CoreModel类。
+  参数说明：
+  ,MicroPHP是一个免费、开源、敏捷的MVC模式的PHP开发框架。它易拓展而不失灵活，可以轻松对应大中小型项目。MicroPHP没有大而全的功能，只给你最需要的底层功能，但是给你无限的灵活拓展能力。"/>
+        <link rel="icon" href="public/microphp_res/images/favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="public/microphp_res/images/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" href="public/ui/css/bootstrap.min.css"/><link rel="stylesheet" href="public/ui/css/bootstrap-theme.min.css"/><link rel="stylesheet" href="public/microphp_res/css/buttons.css"/><link rel="stylesheet" href="public/microphp_res/css/style.css?ver=2.4"/>    </head>
+    <body  class="">
+        <div><!--body container start-->
+                <div class="container ">
+            <div class="row">
+                                    <div class="col-sm-12 col-md-3 manual_left">
+                            <script>var html = true;</script>
+    <ul class="nav nav-pills nav-stacked nav-list nav_manual">
+        <h2><small><i class="glyphicon glyphicon-list"></i></small>目录</h2>
+                <li><a class="" href="manual-about_microphp.html" key="about_microphp"><strong>MicroPHP详细介绍</strong></a></li>
+                <li><a class="" href="manual-sysconfig.html" key="sysconfig"><strong>系统配置说明</strong></a></li>
+                <li><a class="" href="manual-form_validator.html" key="form_validator"><strong>表单验证</strong></a></li>
+                <li><a class="" href="manual-error_control.html" key="error_control"><strong>错误控制</strong></a></li>
+                <li><a class="" href="manual-sys_functions.html" key="sys_functions"><strong>系统函数</strong></a></li>
+                <li><a class="" href="manual-database_manual.html" key="database_manual"><strong>数据库手册</strong></a></li>
+                <li><a class="" href="manual-output.html" key="output"><strong>输出</strong></a></li>
+                <li><a class="" href="manual-config.html" key="config"><strong>获取配置</strong></a></li>
+                <li><a class="" href="manual-library.html" key="library"><strong>使用类库</strong></a></li>
+                <li><a class="" href="manual-view.html" key="view"><strong>使用视图</strong></a></li>
+                <li><a class="" href="manual-router.html" key="router"><strong>URL路由</strong></a></li>
+                <li><a class="" href="manual-console.html" key="console"><strong>命令行下的MicroPHP</strong></a></li>
+                <li><a class="" href="manual-plugin.html" key="plugin"><strong>插件模式</strong></a></li>
+                <li><a class="" href="manual-core_ext.html" key="core_ext"><strong>拓展核心</strong></a></li>
+                <li><a class="" href="manual-cache.html" key="cache"><strong>缓存</strong></a></li>
+                <li><a class="" href="manual-autoload.html" key="autoload"><strong>自动加载</strong></a></li>
+                <li><a class="" href="manual-helper.html" key="helper"><strong>helper文件</strong></a></li>
+                <li><a class="" href="manual-dbcfg.html" key="dbcfg"><strong>数据库配置</strong></a></li>
+                <li><a class="" href="manual-database.html" key="database"><strong>连接数据库</strong></a></li>
+                <li><a class="" href="manual-model.html" key="model"><strong>使用模型</strong></a></li>
+                <li><a class="" href="manual-controller.html" key="controller"><strong>控制器</strong></a></li>
+                <li><a class="" href="manual-name.html" key="name"><strong>命名规则</strong></a></li>
+                <li><a class="" href="manual-pagebar.html" key="pagebar"><strong>分页条</strong></a></li>
+                <li><a class="" href="manual-hmvc.html" key="hmvc"><strong>HMVC模式</strong></a></li>
+                <li><a class="" href="manual-input.html" key="input"><strong>Input输入_获取输入数据</strong></a></li>
+                <li><a class="active" href="manual-table_model.html" key="table_model"><strong>表模型</strong></a></li>
+            </ul>
+                    </div>
+                    <div class="manual_nav_fix"></div>
+                
+                <div class="col-sm-12  manual_right  col-sm-9">
+                    <iframe id="manual_iframe" name="manual_iframe" scrolling="no" width="100%" style="display: none;" frameborder="0" src="about:blank"></iframe>
+                    <div class="panel panel-collapse panel-primary">
+                        <div class="panel-heading">
+                            表模型                        </div>
+                        <div class="panel-body">
+                            <pre>在MicroPHP里面有个CoreTableModel类，CoreTableModel继承了类CoreModel。该类封装了常用的表操作。每个类的对象都和一个具体的表绑定。
+实例化一个表模型可以通过函数table($table_name,$db=null);返回的是CoreTableModel类对象，CoreTableModel类继承了CoreModel类。
+  参数说明：
+  $table_name  表名称，不含配置的前缀
+  $db          使用的数据库连接，留空默认使用当前的$this-&gt;db。可以是$this-&gt;database()方法返回的数据库连接对象。 <b>提示：
+  1.使用table()之前要确定一下$system['table_cache_folder']文件夹是否存在，该文件夹用来缓存表字段信息。
+  2.如果后期修改了表结构增加或者删除了字段，记得删除1中文件夹里面的对应表缓存文件，名字是：表名称.php。</b> 实用的方法如下：
+  $table_model=table('user');
+  (1).<b>find</b>($values, $is_rows = false, $order_by = null)方法,查询数据
+    find方法非常灵活，下面给出几个使用示例：
+    1.获取主键是10的记录
+    $table_model-&gt;find(10)
+    2.获取主键是10，11的两个记录
+    $table_model-&gt;find(array(10,11),true)
+    3.根据条件获取一条记录
+    $table_model-&gt;find(array('id'=&gt;100))
+    4.根据条件获取多条记录
+    $table_model-&gt;find(array('id &gt;'=&gt;10),true)
+    5.获取主键是10，11的两个记录,并用id排序
+    $table_model-&gt;find(array(10,11),true,'id desc')
+    6.根据条件获取多条记录,并用id排序
+    $table_model-&gt;find(array('id &gt;'=&gt;10),true,'id asc')
+  (2).<b>findAll</b>($where = null, $orderby = NULL, $limit = null, $fileds = null),获取所有数据。
+      下面是几个例子：
+    1.查询表所有数据。
+      $table_model-&gt;findAll()
+    2.查询表中type为1的所有数据。
+      $table_model-&gt;findAll(array('type'=&gt;1))
+    3.查询表中type为1的所有数据，并且按着id倒序排列。
+      $table_model-&gt;findAll(array('type'=&gt;1),'id desc')
+    4.查询表中type为1的按着id倒序排列的100条数据。
+      $table_model-&gt;findAll(array('type'=&gt;1),'id desc',100)
+    5.查询表中type为1的按着id倒序排列的100条数据，同时只获取id和name两个字段。
+      $table_model-&gt;findAll(array('type'=&gt;1),'id desc',100,'id,name')
+  (3).<b>findCol</b>($col, $where, $is_rows = false, $order_by = null)方法,查询字段数据
+   findCol和find类似，值是获取的是某个字段的值或者数组，示例可以参考find方法。
+  (4).<b>delete</b>($values, Array $cond = NULL)方法,删除数据
+   delete方法是用来删除数据。
+    下面是几个例子：
+    1.删除主键是10的记录
+    $table_model-&gt;delete(10)
+    2.删除主键是10,11,12的记录
+    $table_model-&gt;delete(array(10,11,12))
+    3.删除主键是10,11,12记录中gid是3的记录
+    $table_model-&gt;delete(array(10,11,12),array('gid'=&gt;3))
+  (5).<b>deleteIn</b>($key, $values, Array $cond = NULL)方法,删除数据
+    下面是几个例子：
+    1.删除cat_id是3的记录
+    $table_model-&gt;deleteIn(‘cat_id’,3)
+    2.删除cat_id是3,4,5的记录
+    $table_model-&gt;deleteIn(‘cat_id’,array(3,4,5))
+    3.删除cat_id是3,4,5记录中id大于100的记录
+    $table_model-&gt;deleteIn(‘cat_id’,array(3,4,5),array('id &gt;'=&gt;100))
+  (6).<b>check</b>($source_data, &amp;$ret_data, $rule = null, $map = null)方法,验证数据
+   参数说明：
+   $source_data 数据源，要检查的数据
+   $ret_data    数据验证通过$ret_data是验证规则处理后的数据，用于插入或者更新到数据库,数据验证失败$ret_data是空数组
+   $rule        验证规则，格式：array(
+                                '字段名称'=&gt;array(
+                                                 '表单验证规则'=&gt;'验证失败提示信息',
+                                                 ...
+                                                 ),
+                                 ...
+                               )
+   $map         字段映射信息数组。格式：array('表单name名称'=&gt;'表字段名称',...)
+   返回null:验证通过。返回字符串:验证失败提示信息。
+   使用示例：
+        $user = table('admin');
+        $_POST['user'] = 'test';
+        //$_POST['user'] = 'testaa';
+        $_POST['pass'] = 'testtesttesttest';
+        $rule = array(
+            'username' =&gt; array($this-&gt;rule-&gt;range_len(5, 16) =&gt; '用户名5-16字符'),
+            'password' =&gt; array($this-&gt;rule-&gt;len(16) =&gt; '密码16字符'),
+        );
+        $map=array('user'=&gt;'username','pass'=&gt;'password');
+        $data = array();
+        if (is_null($msg = $table_model-&gt;check($_POST, $data, $rule,$map))) {
+            //dump($data);
+            dump($table_model-&gt;update($data,3));
+        } else {
+            echo $msg;
+        }
+    (7).<b>insert</b>($ret_data),插入数据。
+        $ret_data应该是check()验证通过的数据。
+    (8).<b>update</b>($ret_data, $where),需要更新的数据。
+        $ret_data  应该是check()验证通过的数据。
+        $where     可以是where条件关联数组，还可以是主键值。
+    (9).<b>columns</b>(),获取表字段数组。
+    (10).<b>getPage</b>($page, $pagesize, $url, $fields = '*', Array $where = null, Array $like = null, $orderby = null, $page_bar_order = array(1, 2, 3, 4, 5, 6), $page_bar_a_count = 10)
+        getPage用于获取分页数据，同时含有分页条。返回的是一个数组，items字段是结果集，page字段是分页条字符串。
+        参数说明：
+        $page       第几页
+        $pagesize   每页多少条
+        $url        基础url，里面的{page}会被替换为实际的页码
+        $fields     select的字段，全部用*，多个字段用逗号分隔
+        $where      where条件，关联数组
+        $like       搜素的字段，比如array('title'=&gt;'java');搜索title包含java
+        $orderby    排序字段，比如: 'id desc'
+        $page_bar_order   分页条组成，可以参考手册分页条部分
+        $page_bar_a_count 分页条a的数量，可以参考手册分页条部分
+        下面是使用示例：
+         1.第一页，每页20条。
+           $table_model-&gt;getPage(1, 20, '?demo/&amp;p={page}', '*', null, null, null, array(3, 5));
+    (11).<b>search</b>($page, $pagesize, $url, $fields, $cond, $page_bar_order = array(1, 2, 3, 4, 5, 6), $page_bar_a_count = 10)
+        getPage用于获取分页数据，同时含有分页条。返回的是一个数组，items字段是结果集，page字段是分页条字符串。
+        参数说明：
+        $page       第几页
+        $pagesize   每页多少条
+        $url        基础url，里面的{page}会被替换为实际的页码
+        $fields     select的字段，全部用*，多个字段用逗号分隔
+        $cond       SQL语句where后面的部分，不要带limit
+        $page_bar_order   分页条组成，可以参考手册分页条部分
+        $page_bar_a_count 分页条a的数量，可以参考手册分页条部分
+        下面是使用示例：
+         1.搜索id大于11而且type为3，按着id倒序排列。每页20条。
+           $query='id&gt;11 and type=3 order by id desc';
+           $url='?demo.page&amp;query=' . urlencode($query) . '&amp;p={page}';
+           $table_model-&gt;search($this-&gt;input-&gt;get('p'), 20, $url , '*', $query));
+</pre>                        </div>
+                    </div>
+                                    </div>
+                <div class="clearfix visible-xs"></div>
+            </div>
+            </div><!--body container end-->
+<div class="copyright">
+    <div class="container center-block">
+        <p>Powered By <a target="_blank" href="http://www.host900.com/">狂奔的蜗牛</a>
+            | <a href="http://git.oschina.net/snail/microphp/tags" target="_blank">历史版本</a>
+            | <a href="http://git.oschina.net/snail/microphp/tree/development/modules"target="_blank">源代码</a>
+            | <a href="?in.action/8">快速入门</a>
+            | <a href="http://www.oschina.net/p/microphp">MicroPHP@开源中国</a></p>
+        <p>源代码许可证 <a target="_blank" href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License v2.0</a></p>
+        <p>MicroPHP官方QQ交流群 : 42807575 , 有问题欢迎加群交流</p>
+    </div>
+</div>
+<div id="gotoTop" title="返回顶部"></div>
+            <script type="text/javascript">
+    var duoshuoQuery = {short_name: "microphp"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+                || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<script src="public/ui/jquery.js"></script><script src="public/ui/js/bootstrap.min.js"></script><script src="public/microphp_res/js/buttons.js"></script><script src="public/microphp_res/js/run_prettify.js"></script><script src="public/microphp_res/js/scroll.js"></script><script src="public/microphp_res/js/style.js?ver=2.8"></script><div style="display: none;"><script type="text/javascript">
+    var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F25dc3c6d2187c5da81c6269c209aa726' type='text/javascript'%3E%3C/script%3E"));
+    </script></div>                </body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>控制器_MicroPHP手册_MicroPHP_真正的敏捷PHP开发框架</title>
+        <meta name="keywords" content="控制器,MicroPHP,PHP框架,PHP开发,PHP敏捷开发"/>
+        <meta name="description" content="
+	1.访问控制器
+控制器访问支持queryStrng和pathInfo两种模式。下面是个例子：
+
+
+	这里假定控制器文件配置后缀是.php，方法前缀是do，方法名首字母大写不包含前缀。
+
+
+	QueryString模式：http://127.0.0.1/index.php?home.welcome.index/1/2&amp;uid=333
+说明：
+1.这个地址是访问控制器,MicroPHP是一个免费、开源、敏捷的MVC模式的PHP开发框架。它易拓展而不失灵活，可以轻松对应大中小型项目。MicroPHP没有大而全的功能，只给你最需要的底层功能，但是给你无限的灵活拓展能力。"/>
+        <link rel="icon" href="public/microphp_res/images/favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="public/microphp_res/images/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" href="public/ui/css/bootstrap.min.css"/><link rel="stylesheet" href="public/ui/css/bootstrap-theme.min.css"/><link rel="stylesheet" href="public/microphp_res/css/buttons.css"/><link rel="stylesheet" href="public/microphp_res/css/style.css?ver=2.4"/>    </head>
+    <body  class="">
+        <div><!--body container start-->
+                <div class="container ">
+            <div class="row">
+                                    <div class="col-sm-12 col-md-3 manual_left">
+                            <script>var html = true;</script>
+    <ul class="nav nav-pills nav-stacked nav-list nav_manual">
+        <h2><small><i class="glyphicon glyphicon-list"></i></small>目录</h2>
+                <li><a class="" href="manual-about_microphp.html" key="about_microphp"><strong>MicroPHP详细介绍</strong></a></li>
+                <li><a class="" href="manual-sysconfig.html" key="sysconfig"><strong>系统配置说明</strong></a></li>
+                <li><a class="" href="manual-form_validator.html" key="form_validator"><strong>表单验证</strong></a></li>
+                <li><a class="" href="manual-error_control.html" key="error_control"><strong>错误控制</strong></a></li>
+                <li><a class="" href="manual-sys_functions.html" key="sys_functions"><strong>系统函数</strong></a></li>
+                <li><a class="" href="manual-database_manual.html" key="database_manual"><strong>数据库手册</strong></a></li>
+                <li><a class="" href="manual-output.html" key="output"><strong>输出</strong></a></li>
+                <li><a class="" href="manual-config.html" key="config"><strong>获取配置</strong></a></li>
+                <li><a class="" href="manual-library.html" key="library"><strong>使用类库</strong></a></li>
+                <li><a class="" href="manual-view.html" key="view"><strong>使用视图</strong></a></li>
+                <li><a class="" href="manual-router.html" key="router"><strong>URL路由</strong></a></li>
+                <li><a class="" href="manual-console.html" key="console"><strong>命令行下的MicroPHP</strong></a></li>
+                <li><a class="" href="manual-plugin.html" key="plugin"><strong>插件模式</strong></a></li>
+                <li><a class="" href="manual-core_ext.html" key="core_ext"><strong>拓展核心</strong></a></li>
+                <li><a class="" href="manual-cache.html" key="cache"><strong>缓存</strong></a></li>
+                <li><a class="" href="manual-autoload.html" key="autoload"><strong>自动加载</strong></a></li>
+                <li><a class="" href="manual-helper.html" key="helper"><strong>helper文件</strong></a></li>
+                <li><a class="" href="manual-dbcfg.html" key="dbcfg"><strong>数据库配置</strong></a></li>
+                <li><a class="" href="manual-database.html" key="database"><strong>连接数据库</strong></a></li>
+                <li><a class="" href="manual-model.html" key="model"><strong>使用模型</strong></a></li>
+                <li><a class="active" href="manual-controller.html" key="controller"><strong>控制器</strong></a></li>
+                <li><a class="" href="manual-name.html" key="name"><strong>命名规则</strong></a></li>
+                <li><a class="" href="manual-pagebar.html" key="pagebar"><strong>分页条</strong></a></li>
+                <li><a class="" href="manual-hmvc.html" key="hmvc"><strong>HMVC模式</strong></a></li>
+                <li><a class="" href="manual-input.html" key="input"><strong>Input输入_获取输入数据</strong></a></li>
+                <li><a class="" href="manual-table_model.html" key="table_model"><strong>表模型</strong></a></li>
+            </ul>
+                    </div>
+                    <div class="manual_nav_fix"></div>
+
+                <div class="col-sm-12  manual_right  col-sm-9">
+                    <iframe id="manual_iframe" name="manual_iframe" scrolling="no" width="100%" style="display: none;" frameborder="0" src="about:blank"></iframe>
+                    <div class="panel panel-collapse panel-primary">
+                        <div class="panel-heading">
+                            控制器                        </div>
+                        <div class="panel-body">
+                            <p>
+	<strong>1.访问控制器</strong><br />
+控制器访问支持queryStrng和pathInfo两种模式。下面是个例子：
+</p>
+<p>
+	<span>这里假定控制器文件配置后缀是.php，方法前缀是do，方法名首字母大写不包含前缀。</span>
+</p>
+<p>
+	<strong>QueryString模式</strong>：http://127.0.0.1/index.php?home.welcome.index/1/2<b>&amp;uid=333</b><br />
+说明：<br />
+1.这个地址是访问控制器目录下面的home文件夹里面的welcome.php里面的Welcome类的doIndex&nbsp;<span>方法</span>。<br />
+2.同时向doIndex方法传递了两个参数，第一个是1和第二个是2。<br />
+3.还传递了一个get变量uid，可以通过$this-&gt;input-&gt;get('uid')获取333。<br />
+<strong>PathInfo模式</strong>：http://127.0.0.1/index.php/home.welcome.index/1/2<b>?uid=333</b><br />
+说明：<br />
+1.这个地址是访问控制器目录下面的home文件夹里面的welcome.php里面的 doIndex <span>方法</span>。<br />
+2.同时向doIndex方法传递了两个参数，第一个是1和第二个是2。<br />
+3.还传递了一个get变量uid，可以通过$this-&gt;input-&gt;get('uid')获取333。
+</p>
+<p>
+	&nbsp; &nbsp; 可以看出两个模式的区别就是index.php后面一个是?一个是/，get方式传递和普通get方式一样。<br />
+<span><strong>2.代码规范</strong></span><strong></strong>
+</p>
+<p>
+	控制器类必须继承CoreController类，<span>控制器</span>文件名和类名一样，类名首字母大写，而且如果有构造方法那么构造方法里面必须先调用父类的构造方法。<br />
+示例如下：
+</p>
+<pre class="prettyprint linenums lang-php">class Welcome extends CoreController{
+   public function __construct() {
+       parent::__construct();
+   }
+   public function doIndex($name=''){
+      $this-&gt;view("welcome",array('msg'=&gt;$name));
+   }
+   public function __output($html){
+      echo '__output'.$html;
+   }
+}
+</pre>
+<strong>3.输出控制</strong><br />
+<p>
+	如果控制器里面有个public function __output($html)方法，那么该控制器所有的输出都会重定向到这个方法上，这个方法会被调用，参数是将要显示到浏览器的页面内容。在这个方法里面可以在输出之前进一步处理内容，该方法决定了内容是否显示到浏览器。
+</p>
+<p>
+	<strong>4.和控制器相关的配置</strong>
+</p>
+<p>
+	1.存放控制器文件的文件夹路径名称<br />
+$system['controller_folder'] = $system['application_folder'] . '/controllers';
+</p>
+<p>
+	2.<span>&nbsp;默认控制器</span>
+</p>
+<p>
+	$system['default_controller'] = 'welcome';
+</p>
+<p>
+	3.控制器方法名称前缀
+</p>
+<p>
+	$system['controller_method_prefix'] = 'do';<span style="line-height:1.5;"></span>
+</p>
+<p>
+	4.<span>&nbsp;默认方法名称，不要带前缀</span>
+</p>
+<p>
+	$system['default_controller_method'] = 'index';
+</p>
+<p>
+	<span style="line-height:1.5;">5.控制器文件名称后缀,比如.php或者.controller.php</span>
+</p>
+<p>
+	$system['controller_file_suffix'] = '.php';
+</p>                        </div>
+                    </div>
+                                    </div>
+                <div class="clearfix visible-xs"></div>
+            </div>
+            </div><!--body container end-->
+<div class="copyright">
+    <div class="container center-block">
+        <p>Powered By <a target="_blank" href="http://www.host900.com/">狂奔的蜗牛</a>
+            | <a href="http://git.oschina.net/snail/microphp/tags" target="_blank">历史版本</a>
+            | <a href="http://git.oschina.net/snail/microphp/tree/development/modules"target="_blank">源代码</a>
+            | <a href="?in.action/8">快速入门</a>
+            | <a href="http://www.oschina.net/p/microphp">MicroPHP@开源中国</a></p>
+        <p>源代码许可证 <a target="_blank" href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License v2.0</a></p>
+        <p>MicroPHP官方QQ交流群 : 42807575 , 有问题欢迎加群交流</p>
+    </div>
+</div>
+<div id="gotoTop" title="返回顶部"></div>
+            <script type="text/javascript">
+    var duoshuoQuery = {short_name: "microphp"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+                || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<script src="public/ui/jquery.js"></script><script src="public/ui/js/bootstrap.min.js"></script><script src="public/microphp_res/js/buttons.js"></script><script src="public/microphp_res/js/run_prettify.js"></script><script src="public/microphp_res/js/scroll.js"></script><script src="public/microphp_res/js/style.js?ver=2.8"></script><div style="display: none;"><script type="text/javascript">
+    var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F25dc3c6d2187c5da81c6269c209aa726' type='text/javascript'%3E%3C/script%3E"));
+    </script></div>                </body>
+</html>

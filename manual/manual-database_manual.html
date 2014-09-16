@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>数据库手册_MicroPHP手册_MicroPHP_真正的敏捷PHP开发框架</title>
+        <meta name="keywords" content="数据库手册,MicroPHP,PHP框架,PHP开发,PHP敏捷开发"/>
+        <meta name="description" content="数据库驱动采用的是修改过的CodeIgniter数据库驱动。
+
+	
+		快速入门 
+	
+	
+		查询数据 
+	
+	
+		查询结果 
+	
+	
+		插入数据 
+	
+	
+		更新数据 
+	
+	
+		删除数据 
+	
+	
+		链式方法 
+	
+	
+		查询辅助函数 
+	
+	
+		事务 
+	
+
+
+	数据库快速入门例子代码
+
+
+	下面的内容将简单,MicroPHP是一个免费、开源、敏捷的MVC模式的PHP开发框架。它易拓展而不失灵活，可以轻松对应大中小型项目。MicroPHP没有大而全的功能，只给你最需要的底层功能，但是给你无限的灵活拓展能力。"/>
+        <link rel="icon" href="public/microphp_res/images/favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="public/microphp_res/images/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" href="public/ui/css/bootstrap.min.css"/><link rel="stylesheet" href="public/ui/css/bootstrap-theme.min.css"/><link rel="stylesheet" href="public/microphp_res/css/buttons.css"/><link rel="stylesheet" href="public/microphp_res/css/style.css?ver=2.4"/>    </head>
+    <body  class="">
+        <div><!--body container start-->
+                <div class="container ">
+            <div class="row">
+                                    <div class="col-sm-12 col-md-3 manual_left">
+                            <script>var html = true;</script>
+    <ul class="nav nav-pills nav-stacked nav-list nav_manual">
+        <h2><small><i class="glyphicon glyphicon-list"></i></small>目录</h2>
+                <li><a class="" href="manual-about_microphp.html" key="about_microphp"><strong>MicroPHP详细介绍</strong></a></li>
+                <li><a class="" href="manual-sysconfig.html" key="sysconfig"><strong>系统配置说明</strong></a></li>
+                <li><a class="" href="manual-form_validator.html" key="form_validator"><strong>表单验证</strong></a></li>
+                <li><a class="" href="manual-error_control.html" key="error_control"><strong>错误控制</strong></a></li>
+                <li><a class="" href="manual-sys_functions.html" key="sys_functions"><strong>系统函数</strong></a></li>
+                <li><a class="active" href="manual-database_manual.html" key="database_manual"><strong>数据库手册</strong></a></li>
+                <li><a class="" href="manual-output.html" key="output"><strong>输出</strong></a></li>
+                <li><a class="" href="manual-config.html" key="config"><strong>获取配置</strong></a></li>
+                <li><a class="" href="manual-library.html" key="library"><strong>使用类库</strong></a></li>
+                <li><a class="" href="manual-view.html" key="view"><strong>使用视图</strong></a></li>
+                <li><a class="" href="manual-router.html" key="router"><strong>URL路由</strong></a></li>
+                <li><a class="" href="manual-console.html" key="console"><strong>命令行下的MicroPHP</strong></a></li>
+                <li><a class="" href="manual-plugin.html" key="plugin"><strong>插件模式</strong></a></li>
+                <li><a class="" href="manual-core_ext.html" key="core_ext"><strong>拓展核心</strong></a></li>
+                <li><a class="" href="manual-cache.html" key="cache"><strong>缓存</strong></a></li>
+                <li><a class="" href="manual-autoload.html" key="autoload"><strong>自动加载</strong></a></li>
+                <li><a class="" href="manual-helper.html" key="helper"><strong>helper文件</strong></a></li>
+                <li><a class="" href="manual-dbcfg.html" key="dbcfg"><strong>数据库配置</strong></a></li>
+                <li><a class="" href="manual-database.html" key="database"><strong>连接数据库</strong></a></li>
+                <li><a class="" href="manual-model.html" key="model"><strong>使用模型</strong></a></li>
+                <li><a class="" href="manual-controller.html" key="controller"><strong>控制器</strong></a></li>
+                <li><a class="" href="manual-name.html" key="name"><strong>命名规则</strong></a></li>
+                <li><a class="" href="manual-pagebar.html" key="pagebar"><strong>分页条</strong></a></li>
+                <li><a class="" href="manual-hmvc.html" key="hmvc"><strong>HMVC模式</strong></a></li>
+                <li><a class="" href="manual-input.html" key="input"><strong>Input输入_获取输入数据</strong></a></li>
+                <li><a class="" href="manual-table_model.html" key="table_model"><strong>表模型</strong></a></li>
+            </ul>
+                    </div>
+                    <div class="manual_nav_fix"></div>
+                
+                <div class="col-sm-12  manual_right  col-sm-9">
+                    <iframe id="manual_iframe" name="manual_iframe" scrolling="no" width="100%" style="display: none;" frameborder="0" src="about:blank"></iframe>
+                    <div class="panel panel-collapse panel-primary">
+                        <div class="panel-heading">
+                            数据库手册                        </div>
+                        <div class="panel-body">
+                            数据库驱动采用的是修改过的CodeIgniter数据库驱动。
+<ul style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	<li>
+		<a href="#examples" target="_self">快速入门</a> 
+	</li>
+	<li>
+		<a href="#select" target="_self">查询数据</a> 
+	</li>
+	<li>
+		<a href="#results" target="_self">查询结果</a> 
+	</li>
+	<li>
+		<a href="#insert" target="_self">插入数据</a> 
+	</li>
+	<li>
+		<a href="#update" target="_self">更新数据</a> 
+	</li>
+	<li>
+		<a href="#delete" target="_self">删除数据</a><a name="examples"></a> 
+	</li>
+	<li>
+		<a href="#chaining" target="_self">链式方法</a> 
+	</li>
+	<li>
+		<a href="#helpers" target="_self">查询辅助函数</a> 
+	</li>
+	<li>
+		<a href="#transactions" target="_self">事务</a> 
+	</li>
+</ul>
+<h1 style="color:#E13300;background-color:#FFFFFF;font-weight:normal;font-size:24px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	数据库快速入门例子代码
+</h1>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	下面的内容将简单说明怎样使用数据库。更详细的信息请阅读各个函数的单独介绍页面。
+</p>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	初始化数据库类
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	下面的代码将依据你的<a href="?manual.dbcfg">数据库配置</a>载入并初始化数据库类:
+</p>
+$this-&gt;database();
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	一旦被载入，你可以在任何地方像这样使用它：
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	注意: 如果你的所有页面均要求初始化数据库类，你可以让它自动加载。详见&nbsp;<a href="?manual.database">数据库连接</a>。
+</p>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	多结果标准查询（对象形式）
+</h2>
+$query = $this-&gt;db-&gt;query('SELECT name, title, email FROM my_table');<br />
+foreach ($query-&gt;result() as $row)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;echo $row-&gt;title;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;echo $row-&gt;name;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;echo $row-&gt;email;<br />
+}<br />
+echo 'Total Results: ' . $query-&gt;num_rows();
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	上面的result()函数返回一个<strong>对象</strong>的数组。例如：$row-&gt;title
+</p>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	多结果标准查询（数组形式）
+</h2>
+$query = $this-&gt;db-&gt;query('SELECT name, title, email FROM my_table');<br />
+foreach ($query-&gt;result_array() as $row)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;echo $row['title'];<br />
+&nbsp;&nbsp;&nbsp;&nbsp;echo $row['name'];<br />
+&nbsp;&nbsp;&nbsp;&nbsp;echo $row['email'];<br />
+}
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	上面的result_array()函数返回一个带下标的数组。例如：$row['title']
+</p>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	测试查询结果
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	如果你的查询可能不返回结果，我们建议你先使用&nbsp;num_rows()函数来测试:
+</p>
+$query = $this-&gt;db-&gt;query("YOUR QUERY");<br />
+if ($query-&gt;num_rows() &gt; 0)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;foreach ($query-&gt;result() as $row)<br />
+&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo $row-&gt;title;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo $row-&gt;name;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo $row-&gt;body;<br />
+&nbsp;&nbsp;&nbsp;}<br />
+}
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	单结果标准查询（对象形式）
+</h2>
+$query = $this-&gt;db-&gt;query('SELECT name FROM my_table LIMIT 1');<br />
+$row = $query-&gt;row();<br />
+echo $row-&gt;name;<br />
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	上面的row()函数返回一个&nbsp;<strong>对象</strong>。例如：$row-&gt;name
+</p>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	单结果标准查询（数组形式）
+</h2>
+$query = $this-&gt;db-&gt;query('SELECT name FROM my_table LIMIT 1');<br />
+$row = $query-&gt;row_array();<br />
+echo $row['name'];<br />
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	上面的row_array()函数返回一个&nbsp;<strong>数组</strong>。例如：$row['name']
+</p>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	标准插入(insert)
+</h2>
+$sql = "INSERT INTO mytable (title, name)&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUES (".$this-&gt;db-&gt;escape($title).", ".$this-&gt;db-&gt;escape($name).")";<br />
+$this-&gt;db-&gt;query($sql);<br />
+echo $this-&gt;db-&gt;affected_rows();
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	快捷查询
+</h2>
+$query = $this-&gt;db-&gt;get('table_name');<br />
+foreach ($query-&gt;result() as $row)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;echo $row-&gt;title;<br />
+}
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	上面的get()函数返回数据表中所有的结果。
+</p>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	快捷插入(insert)
+</h2>
+$data = array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'title' =&gt; $title,<br />
+<a name="select"></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'name' =&gt; $name,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'date' =&gt; $date<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+$this-&gt;db-&gt;insert('mytable', $data);&nbsp;<br />
+// Produces: INSERT INTO mytable (title, name, date) VALUES ('{$title}', '{$name}', '{$date}')<br />
+<span style="background-color:#FFFFFF;color:#E13300;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:24px;line-height:1.5;">查询数据</span> 
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	下面的函数帮助你构建 SQL&nbsp;<strong>SELECT</strong>语句。
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	<strong>备注：如果你正在使用 PHP5，你可以在复杂情况下使用链式语法。本页面底部有具体描述。</strong> 
+</p>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;get();
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	运行选择查询语句并且返回结果集。可以获取一个表的全部数据。
+</p>
+$query = $this-&gt;db-&gt;get('mytable');<br />
+// Produces: SELECT * FROM mytable
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	第二和第三个参数允许你设置一个结果集每页纪录数(limit)和结果集的偏移(offset)
+</p>
+$query = $this-&gt;db-&gt;get('mytable', 10, 20);<br />
+// Produces: SELECT * FROM mytable LIMIT 20, 10 (MySQL语法. 其他数据库在语法上略有不同)
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	注意：第二参数是每页纪录数，第三个参数是偏移
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	你会注意到上面的函数由一个变量$query执行，这个$query可以用来显示结果集。
+</p>
+$query = $this-&gt;db-&gt;get('mytable');<br />
+foreach ($query-&gt;result() as $row)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;echo $row-&gt;title;<br />
+}
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	请访问<a href="#results" target="_self">查询结果</a>查看详细的生成结果的方法。
+</p>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;get_where();
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	跟上面的函数一样，只是它允许你在函数的第二个参数那里添加一个 where 从句，从而不用使用 db-&gt;where() 这个函数：
+</p>
+$query = $this-&gt;db-&gt;get_where('mytable', array('id' =&gt; $id), $limit, $offset);
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	请阅读下面的 where 函数了解更多。
+</p>
+<p class="important" style="background-color:#FBE6F2;color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;">
+	注意: get_where() 在以前的版本中写作 getwhere()，这是已经过时的用法，现已从代码中移除 getwhere()。
+</p>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;select();
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	允许你在SQL查询中写 SELECT 部分:
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	$this-&gt;db-&gt;select('title, content, date');<br />
+$query = $this-&gt;db-&gt;get('mytable');<br />
+// Produces: SELECT title, content, date FROM mytable
+</p>
+<p class="important" style="background-color:#FBE6F2;color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;">
+	<strong>注意:</strong>&nbsp;如果你要查询表中的所有列，你可以不用写这个函数。省略后，CodeIgniter 会认为你要查询 全部列(SELECT *)。
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	$this-&gt;db-&gt;select() 可接受一个可选的第二个参数。如果你把它设为FALSE， CodeIgniter 将不会使用反引号保护你的字段或者表名 。这在进行复合查询时很有用。
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	$this-&gt;db-&gt;select("('SELECT SUM(payments.amount) FROM payments WHERE payments.invoice_id=4') AS amount_paid", FALSE);&nbsp;<br />
+$query = $this-&gt;db-&gt;get('mytable');
+</p>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;select_max();
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	为你的查询编写一个 "SELECT MAX(field)"。你可以选择性的给出第二个参数，以便重命名结果字段名。
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	$this-&gt;db-&gt;select_max('age');<br />
+$query = $this-&gt;db-&gt;get('members');<br />
+// Produces: SELECT MAX(age) as age FROM members<br />
+$this-&gt;db-&gt;select_max('age', 'member_age');<br />
+$query = $this-&gt;db-&gt;get('members');<br />
+// Produces: SELECT MAX(age) as member_age FROM members
+</p>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;select_min();
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	为你的查询编写一个 "SELECT MIN(field)" 。与&nbsp;select_max()&nbsp;相似, 你可以选择性地给出第二个参数，用来给结果字段重命名。
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	$this-&gt;db-&gt;select_min('age');<br />
+$query = $this-&gt;db-&gt;get('members');<br />
+// 生成: SELECT MIN(age) as age FROM members
+</p>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;select_avg();
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	为你的查询编写一个 "SELECT AVG(field)" 。与&nbsp;select_max()&nbsp;相似, 你可以选择性地给出第二个参数，用来给结果字段重命名。
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	$this-&gt;db-&gt;select_avg('age');<br />
+$query = $this-&gt;db-&gt;get('members');<br />
+// 生成: SELECT AVG(age) as age FROM members
+</p>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;select_sum();
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	为你的查询编写一个 "SELECT SUM(field)" 。与&nbsp;select_max()&nbsp;相似, 你可以选择性地给出第二个参数，用来给结果字段重命名。
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	$this-&gt;db-&gt;select_sum('age');<br />
+$query = $this-&gt;db-&gt;get('members');<br />
+// 生成: SELECT SUM(age) as age FROM members
+</p>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;from();
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	允许你编写查询中的FROM部分:
+</p>
+$this-&gt;db-&gt;select('title, content, date');<br />
+$this-&gt;db-&gt;from('mytable');<br />
+$query = $this-&gt;db-&gt;get();<br />
+// 生成: SELECT title, content, date FROM mytable
+<p class="important" style="background-color:#FBE6F2;color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;">
+	说明: 正如前面所说，查询中的FROM部分可以在&nbsp;$this-&gt;db-&gt;get()&nbsp;函数中指定，所以你可以根据自己的喜好来选择使用哪个方法。
+</p>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;join();
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	允许你编写查询中的JOIN部分:
+</p>
+$this-&gt;db-&gt;select('*');<br />
+$this-&gt;db-&gt;from('blogs');<br />
+$this-&gt;db-&gt;join('comments', 'comments.id = blogs.id');<br />
+$query = $this-&gt;db-&gt;get();<br />
+// 生成:&nbsp;<br />
+// SELECT * FROM blogs<br />
+// JOIN comments ON comments.id = blogs.id<br />
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	如果你想要在查询中使用多个连接，可以多次调用本函数。
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	如果你需要指定 JOIN 的类型，你可以通过本函数的第三个参数来指定。可选项包括：left, right, outer, inner, left outer, 以及 right outer.
+</p>
+$this-&gt;db-&gt;join('comments', 'comments.id = blogs.id',&nbsp;<strong>'left'</strong>);<br />
+// 生成: LEFT JOIN comments ON comments.id = blogs.id
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;where();
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	本函数允许你使用四种方法中的一种来设置&nbsp;<strong>WHERE</strong>&nbsp;子句:
+</p>
+<p class="important" style="background-color:#FBE6F2;color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;">
+	<strong>说明:</strong>&nbsp;传递给本函数的所有值都会被自动转义，以便生成安全的查询。
+</p>
+<ol style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	<li>
+		<strong>简单的 key/value 方法:</strong>$this-&gt;db-&gt;where('name', $name);&nbsp;<br />
+// 生成: WHERE name = 'Joe'
+		<p>
+			请注意等号已经为你添加。
+		</p>
+		<p>
+			如果你多次调用本函数，那么这些条件会被&nbsp;AND&nbsp;连接起来:
+		</p>
+$this-&gt;db-&gt;where('name', $name);<br />
+$this-&gt;db-&gt;where('title', $title);<br />
+$this-&gt;db-&gt;where('status', $status);&nbsp;<br />
+// WHERE name = 'Joe' AND title = 'boss' AND status = 'active'
+	</li>
+	<li>
+		<strong>自定义 key/value 方法:</strong> 
+		<p>
+			你可以在第一个参数中包含一个运算符，以便控制比较:
+		</p>
+$this-&gt;db-&gt;where('name !=', $name);<br />
+$this-&gt;db-&gt;where('id &lt;', $id);&nbsp;<br />
+// 生成: WHERE name != 'Joe' AND id &lt; 45
+	</li>
+	<li>
+		<strong>关联数组方法:</strong>$array = array('name' =&gt; $name, 'title' =&gt; $title, 'status' =&gt; $status);<br />
+$this-&gt;db-&gt;where($array);&nbsp;<br />
+// 生成: WHERE name = 'Joe' AND title = 'boss' AND status = 'active'
+		<p>
+			使用这个方法时你也可以包含运算符:
+		</p>
+$array = array('name !=' =&gt; $name, 'id &lt;' =&gt; $id, 'date &gt;' =&gt; $date);<br />
+$this-&gt;db-&gt;where($array);
+	</li>
+	<li>
+		<strong>自定义字符串:</strong> 
+		<p>
+			你可以手动的编写子句:
+		</p>
+$where = "name='Joe' AND status='boss' OR status='active'";<br />
+$this-&gt;db-&gt;where($where);
+	</li>
+</ol>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	$this-&gt;db-&gt;where() 接受可选的第三个参数。如果你将它设置为 FALSE, CodeIgniter 将不会为你那些包含反勾号的字段名或表名提供保护。
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	$this-&gt;db-&gt;where('MATCH (field) AGAINST ("value")', NULL, FALSE);
+</p>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;or_where();
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	本函数与上面的那个几乎完全相同，唯一的区别是本函数生成的子句是用 OR 来连接的:
+</p>
+$this-&gt;db-&gt;where('name !=', $name);<br />
+$this-&gt;db-&gt;or_where('id &gt;', $id);&nbsp;<br />
+// 生成: WHERE name != 'Joe' OR id &gt; 50
+<p class="important" style="background-color:#FBE6F2;color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;">
+	说明: or_where() 以前被叫作 orwhere(), 后者已经过时，现已从代码中移除 orwhere()。
+</p>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;where_in();
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	生成一段 WHERE field IN ('item', 'item') 查询语句，如果合适的话，用 AND 连接起来。
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	$names = array('Frank', 'Todd', 'James');<br />
+$this-&gt;db-&gt;where_in('username', $names);<br />
+// 生成: WHERE username IN ('Frank', 'Todd', 'James')
+</p>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;or_where_in();
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	生成一段 WHERE field IN ('item', 'item') 查询语句，如果合适的话，用 OR 连接起来。
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	$names = array('Frank', 'Todd', 'James');<br />
+$this-&gt;db-&gt;or_where_in('username', $names);<br />
+// 生成: OR username IN ('Frank', 'Todd', 'James')
+</p>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;where_not_in();
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	生成一段 WHERE field NOT IN ('item', 'item') 查询语句，如果合适的话，用 AND 连接起来。
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	$names = array('Frank', 'Todd', 'James');<br />
+$this-&gt;db-&gt;where_not_in('username', $names);<br />
+// 生成: WHERE username NOT IN ('Frank', 'Todd', 'James')
+</p>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;or_where_not_in();
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	生成一段 WHERE field NOT IN ('item', 'item') 查询语句，如果合适的话，用 OR 连接起来。
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	$names = array('Frank', 'Todd', 'James');<br />
+$this-&gt;db-&gt;or_where_not_in('username', $names);<br />
+// 生成: OR username NOT IN ('Frank', 'Todd', 'James')
+</p>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;like();
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	本函数允许你生成&nbsp;<strong>LIKE</strong>&nbsp;子句，在做查询时非常有用。
+</p>
+<p class="important" style="background-color:#FBE6F2;color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;">
+	<strong>说明:</strong>&nbsp;传递给本函数的所有值都会被自动转义。
+</p>
+<ol style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	<li>
+		<strong>简单 key/value 方式:</strong>$this-&gt;db-&gt;like('title', 'match');&nbsp;<br />
+// 生成: WHERE title LIKE '%match%'
+		<p>
+			如果你多次调用本函数，那么这些条件将由&nbsp;AND&nbsp;连接起来:
+		</p>
+$this-&gt;db-&gt;like('title', 'match');<br />
+$this-&gt;db-&gt;like('body', 'match');&nbsp;<br />
+// WHERE title LIKE '%match%' AND body LIKE '%match%'如果你想要控制通配符(%)所出现的位置，你可以使用可选的第三个参数。可用的选项是 'before', 'after' 以及 'both' (这是默认值)。$this-&gt;db-&gt;like('title', 'match', 'before');&nbsp;<br />
+// 生成: WHERE title LIKE '%match'&nbsp;<br />
+$this-&gt;db-&gt;like('title', 'match', 'after');&nbsp;<br />
+// 生成: WHERE title LIKE 'match%'&nbsp;<br />
+$this-&gt;db-&gt;like('title', 'match', 'both');&nbsp;<br />
+// 生成: WHERE title LIKE '%match%'
+	</li>
+如果你不想使用百分号(%)，你可以给第三个可选的参数传递一个'none'。$this-&gt;db-&gt;like('title', 'match', 'none');&nbsp;<br />
+// Produces: WHERE title LIKE 'match'
+	<li>
+		<strong>关联数组方式:</strong>$array = array('title' =&gt; $match, 'page1' =&gt; $match, 'page2' =&gt; $match);<br />
+$this-&gt;db-&gt;like($array);&nbsp;<br />
+// WHERE title LIKE '%match%' AND page1 LIKE '%match%' AND page2 LIKE '%match%'
+	</li>
+</ol>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;or_like();
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	本函数与上面那个函数几乎完全相同，唯一的区别是多个实例之间是用 OR 连接起来的:
+</p>
+$this-&gt;db-&gt;like('title', 'match');<br />
+$this-&gt;db-&gt;or_like('body', $match);&nbsp;<br />
+// WHERE title LIKE '%match%' OR body LIKE '%match%'
+<p class="important" style="background-color:#FBE6F2;color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;">
+	说明: or_like() 曾经被称为 orlike(), 后者已经过时，现已从代码中移除 orlike()。
+</p>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;not_like();
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	本函数与&nbsp;<strong>like()</strong>&nbsp;几乎完全相同，唯一的区别是它生成 NOT LIKE 语句:
+</p>
+$this-&gt;db-&gt;not_like('title', 'match');<br />
+// WHERE title NOT LIKE '%match%
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;or_not_like();
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	本函数与&nbsp;<strong>not_like()</strong>&nbsp;几乎完全相同，唯一的区别是多个实例之间是用 OR 连接起来的:
+</p>
+$this-&gt;db-&gt;like('title', 'match');<br />
+$this-&gt;db-&gt;or_not_like('body', 'match');&nbsp;<br />
+// WHERE title LIKE '%match%' OR body NOT LIKE '%match%'
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;group_by();
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	允许你编写查询语句中的 GROUP BY 部分:
+</p>
+$this-&gt;db-&gt;group_by("title");&nbsp;<br />
+// 生成: GROUP BY title
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	你也可以把多个值作为数组传递过去:
+</p>
+$this-&gt;db-&gt;group_by(array("title", "date"));&nbsp;<br />
+// 生成: GROUP BY title, date
+<p class="important" style="background-color:#FBE6F2;color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;">
+	说明: group_by() 曾经被称为 groupby(), 后者已经过时，现已从代码中移除 groupby()。
+</p>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;distinct();<br />
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	为查询语句添加 "DISTINCT" 关键字:
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	$this-&gt;db-&gt;distinct();<br />
+$this-&gt;db-&gt;get('table');<br />
+// 生成: SELECT DISTINCT * FROM table
+</p>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;having();
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	允许你为你的查询语句编写 HAVING 部分。有两种语法形式，一个或两个参数都可以:
+</p>
+$this-&gt;db-&gt;having('user_id = 45');&nbsp;<br />
+// 生成: HAVING user_id = 45<br />
+$this-&gt;db-&gt;having('user_id', 45);&nbsp;<br />
+// 生成: HAVING user_id = 45<br />
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	你也可以把多个值通过数组传递过去:
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	$this-&gt;db-&gt;having(array('title =' =&gt; 'My Title', 'id &lt;' =&gt; $id));&nbsp;<br />
+// 生成: HAVING title = 'My Title' AND id &lt; 45
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	如果你正在使用一个由CodeIgniter进行转义保护的数据库，为了避免内容转义，你可以传递可选的第三个参数，并将其设置为FALSE。
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	$this-&gt;db-&gt;having('user_id', 45);&nbsp;<br />
+// 生成: HAVING `user_id` = 45 (在诸如MySQL等数据库中)&nbsp;<br />
+$this-&gt;db-&gt;having('user_id', 45, FALSE);&nbsp;<br />
+// 生成: HAVING user_id = 45
+</p>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;or_having();
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	与 having() 函数几乎完全一样，唯一的区别是多个子句之间是用 "OR" 分隔的。
+</p>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;order_by();
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	帮助你设置一个 ORDER BY 子句。第一个参数是你想要排序的字段名。第二个参数设置结果的顺序，可用的选项包括&nbsp;asc&nbsp;(升序)或&nbsp;desc(降序), 或&nbsp;random(随机)。
+</p>
+$this-&gt;db-&gt;order_by("title", "desc");&nbsp;<br />
+// 生成: ORDER BY title DESC
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	你也可以在第一个参数中传递你自己的字符串:
+</p>
+$this-&gt;db-&gt;order_by('title desc, name asc');&nbsp;<br />
+// 生成: ORDER BY title DESC, name ASC
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	或者，多次调用本函数就可以排序多个字段。
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	$this-&gt;db-&gt;order_by("title", "desc");<br />
+$this-&gt;db-&gt;order_by("name", "asc");&nbsp;<br />
+// 生成: ORDER BY title DESC, name ASC
+</p>
+<p class="important" style="background-color:#FBE6F2;color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;">
+	说明: order_by() 曾经被称为 orderby(), 后者已经过时，现已从代码中移除 orderby()。
+</p>
+<p class="important" style="background-color:#FBE6F2;color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;">
+	说明: 目前 Oracle 和 MSSQL 的驱动还不支持随机排序，将被默认设置为 'ASC'(升序)。
+</p>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;limit();
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	限制查询所返回的结果数量:
+</p>
+$this-&gt;db-&gt;limit(10);<br />
+// 生成: LIMIT 10
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	第二个参数设置的是结果偏移量。
+</p>
+$this-&gt;db-&gt;limit(10, 20);<br />
+// 生成: LIMIT 20, 10 (仅限MySQL中。其它数据库有稍微不同的语法)
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;count_all_results();
+</h2>
+<a name="insert"></a> 
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	允许你获得某个特定的Active Record查询所返回的结果数量。可以使用Active Record限制函数，例如 where(), or_where(), like(), or_like() 等等。范例：
+</p>
+echo $this-&gt;db-&gt;count_all_results('my_table');<br />
+// 生成一个整数，例如 25<br />
+$this-&gt;db-&gt;like('title', 'match');<br />
+$this-&gt;db-&gt;from('my_table');<a href="#insert" target="_blank"><a name="undefined"></a></a><br />
+echo $this-&gt;db-&gt;count_all_results();<br />
+// 生成一个整数，例如 17&nbsp;<span style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;line-height:normal;background-color:#FFFFFF;"></span> 
+<h1 style="color:#E13300;background-color:#FFFFFF;font-weight:normal;font-size:24px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	插入数据
+</h1>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;insert();
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	生成一条基于你所提供的数据的SQL插入字符串并执行查询。你可以向函数传递&nbsp;<strong>数组</strong>&nbsp;或一个&nbsp;<strong>对象</strong>。下面是一个使用数组的例子：
+</p>
+$data = array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'title' =&gt; 'My title' ,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'name' =&gt; 'My Name' ,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'date' =&gt; 'My date'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+$this-&gt;db-&gt;insert('mytable', $data);&nbsp;<br />
+// Produces: INSERT INTO mytable (title, name, date) VALUES ('My title', 'My name', 'My date')
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	第一个参数包含表名，第二个是一个包含数据的关联数组。
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	下面是一个使用对象的例子：
+</p>
+/*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;class Myclass {<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var $title = 'My Title';<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var $content = 'My Content';<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var $date = 'My Date';<br />
+&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+*/<br />
+$object = new Myclass;<br />
+$this-&gt;db-&gt;insert('mytable', $object);&nbsp;<br />
+// Produces: INSERT INTO mytable (title, content, date) VALUES ('My Title', 'My Content', 'My Date')
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	第一个参数包含表名，第二个是一个对象。
+</p>
+<p class="important" style="background-color:#FBE6F2;color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;">
+	<strong>注意:</strong>&nbsp;所有的值已经被自动转换为安全查询。
+</p>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;insert_batch();
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	生成一条基于你所提供的数据的SQL插入字符串并执行查询。你可以向函数传递&nbsp;<strong>数组</strong>&nbsp;或一个&nbsp;<strong>对象</strong>。下面是一个使用数组的例子：
+</p>
+$data = array(<br />
+&nbsp;&nbsp;&nbsp;array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'title' =&gt; 'My title' ,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'name' =&gt; 'My Name' ,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'date' =&gt; 'My date'<br />
+&nbsp;&nbsp;&nbsp;),<br />
+&nbsp;&nbsp;&nbsp;array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'title' =&gt; 'Another title' ,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'name' =&gt; 'Another Name' ,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'date' =&gt; 'Another date'<br />
+&nbsp;&nbsp;&nbsp;)<br />
+);<br />
+$this-&gt;db-&gt;insert_batch('mytable', $data);&nbsp;<br />
+//生成： INSERT INTO mytable (title, name, date) VALUES ('My title', 'My name', 'My date'), ('Another title', 'Another name', 'Another date')
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	第一个参数包含表名，第二个是一个包含数据的关联数组。
+</p>
+<p class="important" style="background-color:#FBE6F2;color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;">
+	<strong>注意:</strong>&nbsp;所有的值已经被自动转换为安全查询。
+</p>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;set();
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	本函数使您能够设置inserts(插入)或updates(更新)值。
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	<strong>它可以用来代替那种直接传递数组给插入和更新函数的方式:</strong> 
+</p>
+$this-&gt;db-&gt;set('name', $name);&nbsp;<br />
+$this-&gt;db-&gt;insert('mytable');&nbsp;<br />
+// 生成: INSERT INTO mytable (name) VALUES ('{$name}')
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	如果你多次调用本函数，它们会被合理地组织起来，这取决于你执行的是插入操作还是更新操作:
+</p>
+$this-&gt;db-&gt;set('name', $name);<br />
+$this-&gt;db-&gt;set('title', $title);<br />
+$this-&gt;db-&gt;set('status', $status);<br />
+$this-&gt;db-&gt;insert('mytable');
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	<strong>set()</strong>&nbsp;也接受可选的第三个参数($escape)，如果此参数被设置为 FALSE，就可以阻止数据被转义。为了说明这种差异，这里将对 包含转义参数 和 不包含转义参数 这两种情况的 set() 函数做一个说明。
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	$this-&gt;db-&gt;set('field', 'field+1', FALSE);<br />
+$this-&gt;db-&gt;insert('mytable');&nbsp;<br />
+// 得到 INSERT INTO mytable (field) VALUES (field+1)<br />
+$this-&gt;db-&gt;set('field', 'field+1');<br />
+$this-&gt;db-&gt;insert('mytable');&nbsp;<br />
+// 得到 INSERT INTO mytable (field) VALUES ('field+1')
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	你也可以将一个关联数组传递给本函数:
+</p>
+$array = array('name' =&gt; $name, 'title' =&gt; $title, 'status' =&gt; $status);<br />
+$this-&gt;db-&gt;set($array);<br />
+$this-&gt;db-&gt;insert('mytable');
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	或者一个对象也可以:
+</p>
+/*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;class Myclass {<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var $title = 'My Title';<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var $content = 'My Content';<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var $date = 'My Date';<br />
+&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+*/<a name="update"></a><span>&nbsp;</span><br />
+$object = new Myclass;<br />
+$this-&gt;db-&gt;set($object);<br />
+$this-&gt;db-&gt;insert('mytable');
+<h1 style="color:#E13300;background-color:#FFFFFF;font-weight:normal;font-size:24px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	更新数据
+</h1>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;update();
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	根据你提供的数据生成并执行一条update(更新)语句。你可以将一个<strong>数组</strong>或者<strong>对象</strong>传递给本函数。这里是一个使用数组的例子:
+</p>
+$data = array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'title' =&gt; $title,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'name' =&gt; $name,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'date' =&gt; $date<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+$this-&gt;db-&gt;where('id', $id);<br />
+$this-&gt;db-&gt;update('mytable', $data);&nbsp;<br />
+// 生成:<br />
+// UPDATE mytable&nbsp;<br />
+// SET title = '{$title}', name = '{$name}', date = '{$date}'<br />
+// WHERE id = $id
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	或者你也可以传递一个对象:
+</p>
+/*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;class Myclass {<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var $title = 'My Title';<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var $content = 'My Content';<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var $date = 'My Date';<br />
+&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+*/<br />
+$object = new Myclass;<br />
+$this-&gt;db-&gt;where('id', $id);<br />
+$this-&gt;db-&gt;update('mytable', $object);&nbsp;<br />
+// 生成:<br />
+// UPDATE mytable&nbsp;<br />
+// SET title = '{$title}', name = '{$name}', date = '{$date}'<br />
+// WHERE id = $id
+<p class="important" style="background-color:#FBE6F2;color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;">
+	<strong>说明:</strong>&nbsp;所有值都会被自动转义，以便生成安全的查询。
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	你会注意到&nbsp;$this-&gt;db-&gt;where()&nbsp;函数的用法，它允许你设置 WHERE 子句。你可以有选择性地将这一信息直接以字符串的形式传递给 update 函数:
+</p>
+$this-&gt;db-&gt;update('mytable', $data, "id = 4");
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	或者是一个数组:
+</p>
+$this-&gt;db-&gt;update('mytable', $data, array('id' =&gt; $id));
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	在进行更新时，你还可以使用上面所描述的&nbsp;$this-&gt;db-&gt;set()&nbsp;函数。
+</p>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;update_batch();
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	生成一条update命令是以你提供的数据为基础的，并执行查询。你可以传递一个数组或对象的参数给update_batch()函数。下面是一个使用一个数组作为参数的示例：Generates an update string based on the data you supply, and runs the query. You can either pass an&nbsp;<strong>array</strong>&nbsp;or an&nbsp;<strong>object</strong>&nbsp;to the function. Here is an example using an array:
+</p>
+$data = array(<br />
+&nbsp;&nbsp;&nbsp;array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'title' =&gt; 'My title' ,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'name' =&gt; 'My Name 2' ,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'date' =&gt; 'My date 2'<br />
+&nbsp;&nbsp;&nbsp;),<br />
+&nbsp;&nbsp;&nbsp;array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'title' =&gt; 'Another title' ,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'name' =&gt; 'Another Name 2' ,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'date' =&gt; 'Another date 2'<br />
+&nbsp;&nbsp;&nbsp;)<br />
+);<br />
+$this-&gt;db-&gt;update_batch('mytable', $data, 'title');&nbsp;<br />
+// Produces:&nbsp;<br />
+// UPDATE `mytable` SET `name` = CASE<br />
+// WHEN `title` = 'My title' THEN 'My Name 2'<br />
+// WHEN `title` = 'Another title' THEN 'Another Name 2'<br />
+// ELSE `name` END,<br />
+// `date` = CASE&nbsp;<br />
+// WHEN `title` = 'My title' THEN 'My date 2'<br />
+// WHEN `title` = 'Another title' THEN 'Another date 2'<br />
+// ELSE `date` END<br />
+<a name="delete"></a> // WHERE `title` IN ('My title','Another title')<a name="undefined"></a><span>&nbsp;<br />
+</span><span style="background-color:#FFFFFF;color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;line-height:1.5;">参数1:表名 参数2:如上所示的二维数组 参数3:键名.</span> 
+<p class="important" style="background-color:#FBE6F2;color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;">
+	<strong>提示:</strong>&nbsp;所有的值都会自动进行安全性过滤.
+</p>
+<span style="background-color:#FFFFFF;color:#E13300;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:24px;line-height:1.5;">删除数据</span> 
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;delete();
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	生成并执行一条DELETE(删除)语句。
+</p>
+$this-&gt;db-&gt;delete('mytable', array('id' =&gt; $id));&nbsp;<br />
+// 生成:<br />
+// DELETE FROM mytable&nbsp;<br />
+// WHERE id = $id
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	第一个参数是表名，第二个参数是where子句。你可以不传递第二个参数，使用&nbsp;where()&nbsp;或者&nbsp;or_where()&nbsp;函数来替代它:
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	$this-&gt;db-&gt;where('id', $id);<br />
+$this-&gt;db-&gt;delete('mytable');&nbsp;<br />
+// 生成:<br />
+// DELETE FROM mytable&nbsp;<br />
+// WHERE id = $id
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	如果你想要从一个以上的表中删除数据，你可以将一个包含了多个表名的数组传递给delete()函数。
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	$tables = array('table1', 'table2', 'table3');<br />
+$this-&gt;db-&gt;where('id', '5');<br />
+$this-&gt;db-&gt;delete($tables);
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	如果你想要删除表中的全部数据，你可以使用&nbsp;truncate()&nbsp;函数，或者&nbsp;empty_table()&nbsp;函数。
+</p>
+<p class="important" style="background-color:#FBE6F2;color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;">
+	<strong>说明：</strong>delete方法貌似现在没有办法接收排序参数
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	假设我想删除早期的用户登录日志信息，我的语法可能会是根据登录时间正序排列，然后跟上limit已经有的总日志条数减去想保留的条数，delete方法没有这个参数用来接收，那么我只能直接使用query传递我的sql了
+</p>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;empty_table();
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	生成并执行一条DELETE(删除)语句。$this-&gt;db-&gt;empty_table('mytable');&nbsp;<br />
+// 生成<br />
+// DELETE FROM mytable
+</p>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;truncate();
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	生成并执行一条TRUNCATE(截断)语句。
+</p>
+$this-&gt;db-&gt;from('mytable');&nbsp;<br />
+$this-&gt;db-&gt;truncate();&nbsp;<br />
+<a name="chaining"></a> // 或&nbsp;<br />
+$this-&gt;db-&gt;truncate('mytable');&nbsp;<br />
+// 生成:<br />
+// TRUNCATE TABLE mytable&nbsp;<br />
+<p class="important" style="background-color:#FBE6F2;color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;">
+	<strong>说明:</strong>&nbsp;如果 TRUNCATE 命令不可用，truncate() 将会以 "DELETE FROM table" 的方式执行。
+</p>
+<h1 style="color:#E13300;background-color:#FFFFFF;font-weight:normal;font-size:24px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	链式方法
+</h1>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	链式方法允许你以连接多个函数的方式简化你的语法。考虑一下这个范例:
+</p>
+$this-&gt;db-&gt;select('title')-&gt;from('mytable')-&gt;where('id', $id)-&gt;limit(10, 20);<a name="results"></a><br />
+$query = $this-&gt;db-&gt;get();
+<p class="important" style="background-color:#FBE6F2;color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;">
+	<strong>说明:</strong>&nbsp;链式方法只能在PHP 5下面运行。
+</p>
+<h1 style="color:#E13300;background-color:#FFFFFF;font-weight:normal;font-size:24px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	生成查询记录集
+</h1>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	支持使用以下方法生成记录集
+</p>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	result()
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	该方法执行成功返回一个<strong>对象数组</strong>，失败则返回一个<strong>空数组</strong>。 一般情况下，我们使用下面的方法遍历结果，代码就像这样：
+</p>
+$query = $this-&gt;db-&gt;query("要执行的 SQL");<br />
+foreach ($query-&gt;result() as $row)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;echo $row-&gt;title;<br />
+&nbsp;&nbsp;&nbsp;echo $row-&gt;name;<br />
+&nbsp;&nbsp;&nbsp;echo $row-&gt;body;<br />
+}
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	本函数的别名是&nbsp;result_object()。
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	如果当前所执行的 SQL 可能<strong>不会</strong>返回记录集，我们可以使用如下方法进行判断：
+</p>
+$query = $this-&gt;db-&gt;query("要执行的 SQL");<br />
+if ($query-&gt;num_rows() &gt; 0)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;foreach ($query-&gt;result() as $row)<br />
+&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo $row-&gt;title;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo $row-&gt;name;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo $row-&gt;body;<br />
+&nbsp;&nbsp;&nbsp;}<br />
+}
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	你可以传递一个字符串给result()函数，该字符串代表着某个类为每一个result对象进行实例化 （注意：该类必须已经被加载）。
+</p>
+$query = $this-&gt;db-&gt;query("SELECT * FROM users;");<br />
+foreach ($query-&gt;result('User') as $row)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;echo $row-&gt;name; // call attributes<br />
+&nbsp;&nbsp;&nbsp;echo $row-&gt;reverse_name(); // or methods defined on the 'User' class<br />
+}
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	result_array()
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	该方法执行成功时将记录集作为<strong>关联数组</strong>返回。失败时返回<strong>空数组</strong>。一般情况下，我们使用下面的方法遍历结果，代码就像这样：
+</p>
+$query = $this-&gt;db-&gt;query("要执行的 SQL");<br />
+foreach ($query-&gt;result_array() as $row)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;echo $row['title'];<br />
+&nbsp;&nbsp;&nbsp;echo $row['name'];<br />
+&nbsp;&nbsp;&nbsp;echo $row['body'];<br />
+}
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	row()
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	该函数将当前请求的第一行数据作为&nbsp;<strong>object</strong>&nbsp;返回。这里是示例代码：
+</p>
+$query = $this-&gt;db-&gt;query("要执行的 SQL");<br />
+if ($query-&gt;num_rows() &gt; 0)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;$row = $query-&gt;row();&nbsp;<br />
+&nbsp;&nbsp;&nbsp;echo $row-&gt;title;<br />
+&nbsp;&nbsp;&nbsp;echo $row-&gt;name;<br />
+&nbsp;&nbsp;&nbsp;echo $row-&gt;body;<br />
+}
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	你可以传递参数(参数是行的索引)以便获得某一行的数据。比如我们要获得第&nbsp;5&nbsp;行的数据：
+</p>
+$row = $query-&gt;row(4);
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	如果传入的参数超出行索引，则返回第一行(索引为0)数据
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	你也可以添加一个字符串参数，它是一个类在row()函数下实例化的名字：
+</p>
+$query = $this-&gt;db-&gt;query("SELECT * FROM users LIMIT 1;");<br />
+$query-&gt;row(0, 'User')<br />
+echo $row-&gt;name; // call attributes<br />
+echo $row-&gt;reverse_name(); // or methods defined on the 'User' class<br />
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	row_array()
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	功能与&nbsp;row()&nbsp;一样, 区别在于该函数返回的是一个数组：
+</p>
+$query = $this-&gt;db-&gt;query("要执行的 SQL");<br />
+if ($query-&gt;num_rows() &gt; 0)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;$row = $query-&gt;row_array();&nbsp;<br />
+&nbsp;&nbsp;&nbsp;echo $row['title'];<br />
+&nbsp;&nbsp;&nbsp;echo $row['name'];<br />
+&nbsp;&nbsp;&nbsp;echo $row['body'];<br />
+}
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	你可以传递参数(参数是行的索引)以便获得某一行的数据。比如我们要获得第&nbsp;5&nbsp;行的数据：
+</p>
+$row = $query-&gt;row_array(4);
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	如果传入的参数超出行索引，则返回第一行(索引为0)数据
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	除此以外, 我们还可以使用下面的方法通过游标的方式获取记录：
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	<strong>$row = $query-&gt;first_row()</strong><br />
+<strong>$row = $query-&gt;last_row()</strong><br />
+<strong>$row = $query-&gt;next_row()</strong><br />
+<strong>$row = $query-&gt;previous_row()</strong> 
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	默认情况下他们将返回一个&nbsp;<strong>object</strong>，同时你也可以传递参数 "array" 以便使用&nbsp;<strong>array</strong>&nbsp;的方式获取数据
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	<strong>$row = $query-&gt;first_row('array')</strong><br />
+<strong>$row = $query-&gt;last_row('array')</strong><br />
+<strong>$row = $query-&gt;next_row('array')</strong><br />
+<strong>$row = $query-&gt;previous_row('array')</strong> 
+</p>
+<h1 style="color:#E13300;background-color:#FFFFFF;font-weight:normal;font-size:24px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	结果集辅助函数
+</h1>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$query-&gt;num_rows()
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	该函数将会返回当前请求的行数。在本例子中,&nbsp;$query&nbsp;表示当前 SQL 所产生的请求结果对象：
+</p>
+$query = $this-&gt;db-&gt;query('SELECT * FROM my_table');<br />
+echo $query-&gt;num_rows();
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$query-&gt;num_fields()
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	该函数返回当前请求的字段数（列数）：
+</p>
+$query = $this-&gt;db-&gt;query('SELECT * FROM my_table');<br />
+echo $query-&gt;num_fields();
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$query-&gt;free_result()
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	该函数将会释放当前查询所占用的内存并删除其关联的资源标识。通常来说，PHP 将会脚本执行结束后自动释放内存。如果当前执行的请求将要花很长时间并且占用比较大的资源时,该函数可以在一定程度上降低资源的消耗：
+</p>
+$query = $this-&gt;db-&gt;query('SELECT title FROM my_table');<br />
+foreach ($query-&gt;result() as $row)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;echo $row-&gt;title;<br />
+}<br />
+<a name="helpers"></a> $query-&gt;free_result(); // $query 将不再可用<br />
+$query2 = $this-&gt;db-&gt;query('SELECT name FROM some_table');<br />
+$row = $query2-&gt;row();<br />
+echo $row-&gt;name;<br />
+$query2-&gt;free_result(); // $query2 将不再可用<br />
+<h1 style="color:#E13300;background-color:#FFFFFF;font-weight:normal;font-size:24px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	查询辅助函数
+</h1>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;insert_id()
+</h2>
+<span style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;line-height:normal;background-color:#FFFFFF;">这个ID号是执行数据插入时的ID。</span> 
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;last_query()
+</h2>
+<span style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;line-height:normal;background-color:#FFFFFF;">这个返回的是最后一次执行的SQL语句。</span> 
+
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;affected_rows()
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	Displays the number of affected rows, when doing "write" type queries (insert, update, etc.).
+</p>
+<span style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;line-height:normal;background-color:#FFFFFF;">当执行写入操作（insert,update等）的查询后，显示被影响的行数。</span><br />
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	Note: In MySQL "DELETE FROM TABLE" returns 0 affected rows. The database class has a small hack that allows it to return the correct number of affected rows. By default this hack is enabled but it can be turned off in the database driver file.
+</p> <a name="transactions"></a> 
+<br />
+<span style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;line-height:normal;background-color:#FFFFFF;">注意：在 MySQL 中“DELETE FROM TABLE”的被影响行数将会返回 0。database 类有一个小 hack 允许返回正确的被影响的行数。默认情况下这个 hack 功能是打开的但可以在数据库驱动文件中关闭它。</span>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	$this-&gt;db-&gt;count_all();<br />
+</h2>
+<h1 style="color:#E13300;background-color:#FFFFFF;font-weight:normal;font-size:24px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	事务
+</h1>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	运行事务
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	要使用事务来运行你的查询, 你可以使用如下所述的&nbsp;$this-&gt;db-&gt;trans_start()&nbsp;和&nbsp;$this-&gt;db-&gt;trans_complete()&nbsp;函数:
+</p>
+$this-&gt;db-&gt;trans_start();<br />
+$this-&gt;db-&gt;query('一条SQL查询...');<br />
+$this-&gt;db-&gt;query('另一条查询...');<br />
+$this-&gt;db-&gt;query('还有一条查询...');<br />
+$this-&gt;db-&gt;trans_complete();
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	在 start/complete 函数之间, 你想运行多少条查询都可以, 根据任何给定查询的成功或失败, 它们将被提交或者回滚。
+</p>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	严格模式(Strict Mode)
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	默认情况下, CodeIgniter 以严格模式运行所有事务。当严格模式被启用时, 如果你正在运行多组的事务, 只要有一组失败, 所有组都会被回滚。如果严格模式被禁用, 每一组都被视为独立的组, 这意味着其中一个组的失败不会影响其它组。
+</p>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	严格模式能以下面的方式禁用:
+</p>
+$this-&gt;db-&gt;trans_strict(FALSE);
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	管理错误信息
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	如果你在你的&nbsp;config/database.php&nbsp;文件中启用了错误报告, 当提交没有成功时, 你会看到一条标准的错误信息。如果调试被关闭, 你可以通过这种方式来管理你的错误信息:
+</p>
+$this->db->db_debug=FALSE;<br />
+$this-&gt;db-&gt;trans_start();<br />
+$this-&gt;db-&gt;query('AN SQL QUERY...');<br />
+$this-&gt;db-&gt;query('ANOTHER QUERY...');<br />
+$this-&gt;db-&gt;trans_complete();<br />
+if ($this-&gt;db-&gt;trans_status()&nbsp;=== FALSE)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;//事物失败的处理逻辑 <br />
+}
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	禁用事务
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	当你使用&nbsp;$this-&gt;db-&gt;trans_start()&nbsp;时, 事务就已经被自动启用了。如果你想要禁用事务, 你可以使用&nbsp;$this-&gt;db-&gt;trans_off()&nbsp;来实现:
+</p>
+$this-&gt;db-&gt;trans_off()<br />
+$this-&gt;db-&gt;trans_start();<br />
+$this-&gt;db-&gt;query('AN SQL QUERY...');<br />
+$this-&gt;db-&gt;trans_complete();
+<p class="important" style="background-color:#FBE6F2;color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;">
+	当事务被禁用的时候, 你的查询将被自动提交, 就像没有使用事务时那样。
+</p>
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	测试模式(Test Mode)
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	你可以选择性地将事务系统设置到 "测试模式" , 这将导致你的查询被回滚 -- 尽管查询会生成有效结果。要使用测试模式, 只需将&nbsp;$this-&gt;db-&gt;trans_start()&nbsp;函数的第一个参数设置为&nbsp;TRUE&nbsp;即可:
+</p>
+$this-&gt;db-&gt;trans_start(TRUE); // 查询将被回滚<br />
+$this-&gt;db-&gt;query('AN SQL QUERY...');<br />
+$this-&gt;db-&gt;trans_complete();
+<h2 style="background-color:#FFFFFF;font-size:18px;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;">
+	手动运行事务
+</h2>
+<p style="color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;background-color:#FFFFFF;">
+	如果你想要手动运行事务, 可以使用下面的方法:
+</p>
+$this->db->db_debug=FALSE;<br />
+$this-&gt;db-&gt;trans_begin();<br />
+$this-&gt;db-&gt;query('AN SQL QUERY...');<br />
+$this-&gt;db-&gt;query('ANOTHER QUERY...');<br />
+$this-&gt;db-&gt;query('AND YET ANOTHER QUERY...');<br />
+if ($this-&gt;db-&gt;trans_status() === FALSE)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;db-&gt;trans_rollback();<br />
+}<br />
+else<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;db-&gt;trans_commit();<br />
+}<br />
+<p class="important" style="background-color:#FBE6F2;color:#333333;font-family:'Lucida Grande', Verdana, Geneva, sans-serif, 宋体;font-size:14px;">
+	<strong>说明:</strong>&nbsp;手动运行事务时, 请务必使用&nbsp;$this-&gt;db-&gt;trans_begin()&nbsp;函数, 而<strong>不是</strong>&nbsp;$this-&gt;db-&gt;trans_start().
+</p>                        </div>
+                    </div>
+                                    </div>
+                <div class="clearfix visible-xs"></div>
+            </div>
+            </div><!--body container end-->
+<div class="copyright">
+    <div class="container center-block">
+        <p>Powered By <a target="_blank" href="http://www.host900.com/">狂奔的蜗牛</a>
+            | <a href="http://git.oschina.net/snail/microphp/tags" target="_blank">历史版本</a>
+            | <a href="http://git.oschina.net/snail/microphp/tree/development/modules"target="_blank">源代码</a>
+            | <a href="?in.action/8">快速入门</a>
+            | <a href="http://www.oschina.net/p/microphp">MicroPHP@开源中国</a></p>
+        <p>源代码许可证 <a target="_blank" href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License v2.0</a></p>
+        <p>MicroPHP官方QQ交流群 : 42807575 , 有问题欢迎加群交流</p>
+    </div>
+</div>
+<div id="gotoTop" title="返回顶部"></div>
+            <script type="text/javascript">
+    var duoshuoQuery = {short_name: "microphp"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+                || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<script src="public/ui/jquery.js"></script><script src="public/ui/js/bootstrap.min.js"></script><script src="public/microphp_res/js/buttons.js"></script><script src="public/microphp_res/js/run_prettify.js"></script><script src="public/microphp_res/js/scroll.js"></script><script src="public/microphp_res/js/style.js?ver=2.8"></script><div style="display: none;"><script type="text/javascript">
+    var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F25dc3c6d2187c5da81c6269c209aa726' type='text/javascript'%3E%3C/script%3E"));
+    </script></div>                </body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>输出_MicroPHP手册_MicroPHP_真正的敏捷PHP开发框架</title>
+        <meta name="keywords" content="输出,MicroPHP,PHP框架,PHP开发,PHP敏捷开发"/>
+        <meta name="description" content="
+1.setCookie
+在控制器和模型中可以通过
+$this->setCookie($key, $value, $life = null, $path = '/', $domian = null, $http_only = false)
+设置一个cookie。
+参数说明：
+$key       要设置的cookie的键
+$value     要设置的cookie的值
+$life ,MicroPHP是一个免费、开源、敏捷的MVC模式的PHP开发框架。它易拓展而不失灵活，可以轻松对应大中小型项目。MicroPHP没有大而全的功能，只给你最需要的底层功能，但是给你无限的灵活拓展能力。"/>
+        <link rel="icon" href="public/microphp_res/images/favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="public/microphp_res/images/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" href="public/ui/css/bootstrap.min.css"/><link rel="stylesheet" href="public/ui/css/bootstrap-theme.min.css"/><link rel="stylesheet" href="public/microphp_res/css/buttons.css"/><link rel="stylesheet" href="public/microphp_res/css/style.css?ver=2.4"/>    </head>
+    <body  class="">
+        <div><!--body container start-->
+                <div class="container ">
+            <div class="row">
+                                    <div class="col-sm-12 col-md-3 manual_left">
+                            <script>var html = true;</script>
+    <ul class="nav nav-pills nav-stacked nav-list nav_manual">
+        <h2><small><i class="glyphicon glyphicon-list"></i></small>目录</h2>
+                <li><a class="" href="manual-about_microphp.html" key="about_microphp"><strong>MicroPHP详细介绍</strong></a></li>
+                <li><a class="" href="manual-sysconfig.html" key="sysconfig"><strong>系统配置说明</strong></a></li>
+                <li><a class="" href="manual-form_validator.html" key="form_validator"><strong>表单验证</strong></a></li>
+                <li><a class="" href="manual-error_control.html" key="error_control"><strong>错误控制</strong></a></li>
+                <li><a class="" href="manual-sys_functions.html" key="sys_functions"><strong>系统函数</strong></a></li>
+                <li><a class="" href="manual-database_manual.html" key="database_manual"><strong>数据库手册</strong></a></li>
+                <li><a class="active" href="manual-output.html" key="output"><strong>输出</strong></a></li>
+                <li><a class="" href="manual-config.html" key="config"><strong>获取配置</strong></a></li>
+                <li><a class="" href="manual-library.html" key="library"><strong>使用类库</strong></a></li>
+                <li><a class="" href="manual-view.html" key="view"><strong>使用视图</strong></a></li>
+                <li><a class="" href="manual-router.html" key="router"><strong>URL路由</strong></a></li>
+                <li><a class="" href="manual-console.html" key="console"><strong>命令行下的MicroPHP</strong></a></li>
+                <li><a class="" href="manual-plugin.html" key="plugin"><strong>插件模式</strong></a></li>
+                <li><a class="" href="manual-core_ext.html" key="core_ext"><strong>拓展核心</strong></a></li>
+                <li><a class="" href="manual-cache.html" key="cache"><strong>缓存</strong></a></li>
+                <li><a class="" href="manual-autoload.html" key="autoload"><strong>自动加载</strong></a></li>
+                <li><a class="" href="manual-helper.html" key="helper"><strong>helper文件</strong></a></li>
+                <li><a class="" href="manual-dbcfg.html" key="dbcfg"><strong>数据库配置</strong></a></li>
+                <li><a class="" href="manual-database.html" key="database"><strong>连接数据库</strong></a></li>
+                <li><a class="" href="manual-model.html" key="model"><strong>使用模型</strong></a></li>
+                <li><a class="" href="manual-controller.html" key="controller"><strong>控制器</strong></a></li>
+                <li><a class="" href="manual-name.html" key="name"><strong>命名规则</strong></a></li>
+                <li><a class="" href="manual-pagebar.html" key="pagebar"><strong>分页条</strong></a></li>
+                <li><a class="" href="manual-hmvc.html" key="hmvc"><strong>HMVC模式</strong></a></li>
+                <li><a class="" href="manual-input.html" key="input"><strong>Input输入_获取输入数据</strong></a></li>
+                <li><a class="" href="manual-table_model.html" key="table_model"><strong>表模型</strong></a></li>
+            </ul>
+                    </div>
+                    <div class="manual_nav_fix"></div>
+                
+                <div class="col-sm-12  manual_right  col-sm-9">
+                    <iframe id="manual_iframe" name="manual_iframe" scrolling="no" width="100%" style="display: none;" frameborder="0" src="about:blank"></iframe>
+                    <div class="panel panel-collapse panel-primary">
+                        <div class="panel-heading">
+                            输出                        </div>
+                        <div class="panel-body">
+                            <pre style="border:none;background:none;">
+<b>1.setCookie</b>
+在控制器和模型中可以通过
+$this->setCookie($key, $value, $life = null, $path = '/', $domian = null, $http_only = false)
+设置一个cookie。
+参数说明：
+$key       要设置的cookie的键
+$value     要设置的cookie的值
+$life      要设置cookie存活的时间，单位秒。比如保存10秒，就是：10
+$path      要设置cookie的路径
+$domain    要设置cookie的域名
+$http_only 要设置的cookie是否不能通过脚本访问
+<b>提示：</b>
+cookie设置和获取，键支持前缀配置，对应系统配置是：<b>$system['cookie_key_prefix'] = ''</b>;
+1.$system['cookie_key_prefix']是在使用$this->setCookie()和$this->input->cookie()设置和获取cookie的时候key使用的前缀。
+2.使用前缀的目的：避免同名的cookie在主域名和子域名之间发生冲突
+3.如果不想使用前缀，可以使用方法：$this->setCookieRaw()和$this->input->cookieRaw()设置和获取cookie
+<b>2.ajax输出</b>
+在控制器和模型里面都可以直接通过
+<b>$this-&gt;ajax_echo($code, $tip = '', $data = '', $jsonp_callback=null,$is_exit = true)</b>
+进行ajax标准输出。
+参数说明：
+$code           状态码
+$tip            提示信息
+$data           数据，可以是数组或者字符串
+$jsonp_callback jsonp回调js方法名称
+$is_exit        控制是否执行完ajax_echo就退出脚本，默认：true。
+示例：
+1.$this->ajax(200,'message')
+输出：
+{"code":200,"tip":"message","data":""}
+2.$this->ajax(200,'message',null,'showUser')
+输出：
+showUser({"code":200,"tip":"message","data":""});
+提示：
+前端js里面可以通过code判断状态码，tip获取提示信息，data里面是数据。
+<b>3.XML输出</b>
+在控制器和模型里面都可以直接通过
+$this->xml_echo($xml, $is_exit = true)
+进行ajax输出
+参数说明：
+$xml     标准xml字符串
+$is_exit 在输出完后是否停止执行
+<b>4.重定向</b>
+在控制器可以直接通过
+$this->redirect($url, $msg = null, $time = 3, $view = null)
+进行重定向。
+参数说明：
+$url   是跳转到的地址
+$msg   是跳转的时候的提示信息
+$time  是提示信息显示多久后跳转，单位秒
+$view  是视图的名称不含后缀,使用视图显示提示信息,视图里面可以直接使用$url,$msg,$time三个变量
+示例：
+1.直接跳转到百度：$this->redirect("http://www.baidu.com/");
+2.跳转到百度,并显示提示信息：$this->redirect("http://www.baidu.com/",'正在跳转...');
+3.跳转到百度,并使用视图(view/message.view.php)显示提示信息：
+$this->redirect("http://www.baidu.com/",'正在跳转...',3,'message');
+比如view/message.view.php内容如下：
+&lt;!DOCTYPE html>
+&lt;html>
+    &lt;head>
+        &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        &lt;title>&lt;/title>
+    &lt;/head>
+    &lt;body>
+        &lt;?php
+        echo $msg.'&lt;br/>'.$time."秒后跳转到".$url;
+        ?>
+    &lt;/body>
+&lt;/html>
+<b>5.输出提示信息</b>
+在控制器里面都可以直接通过:
+$this->message($msg, $url = null, $time = 3, $view = null)
+输出操作后的提示信息
+参数说明：
+$msg    是提示信息
+$url    是跳转到的地址
+$time   是提示信息显示多久后跳转，单位秒
+$view   是视图的名称不含后缀,使用视图显示提示信息,视图里面可以直接使用$url,$msg,$time三个变量
+提示：
+系统配置$system['message_page_view'] = '';可以指定$this->message()方法默认使用的视图。
+(1).该视图会在第4个参数为null时使用。
+(2).这样当使用视图的时候，就不用每次都传递第4个参数。
+(3).这里需要填写的是视图名称，不带视图后缀。没有就留空。
+使用示例：
+1.提示添加成功
+   $this->message("添加成功");
+2.提示添加成功,并使用视图(view/message.view.php)显示提示信息，5秒后跳转到列表页
+   $this->message("添加成功",'http://127.0.0.1/list.php',5,'message');
+比如view/message.view.php:内容如下：
+&lt;!DOCTYPE html>
+&lt;html>
+    &lt;head>
+        &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        &lt;title>&lt;/title>
+   &lt;/head>
+    &lt;body>
+        &lt;?php
+        echo $msg.'&lt;br/>'.$time."秒后跳转到".$url;
+        ?>
+    &lt;/body>
+&lt;/html>
+<b>6.输出控制</b>
+如果<b>控制器</b>里面有个public function __output($html)方法，
+那么该控制器所有的输出在显示之前都会重定向到这个方法上，这个方法会被调用，
+参数是将要显示到浏览器的页面内容。
+在这个方法里面可以在输出之前进一步处理内容，该方法决定了内容是否显示到浏览器。
+</pre>                        </div>
+                    </div>
+                                    </div>
+                <div class="clearfix visible-xs"></div>
+            </div>
+            </div><!--body container end-->
+<div class="copyright">
+    <div class="container center-block">
+        <p>Powered By <a target="_blank" href="http://www.host900.com/">狂奔的蜗牛</a>
+            | <a href="http://git.oschina.net/snail/microphp/tags" target="_blank">历史版本</a>
+            | <a href="http://git.oschina.net/snail/microphp/tree/development/modules"target="_blank">源代码</a>
+            | <a href="?in.action/8">快速入门</a>
+            | <a href="http://www.oschina.net/p/microphp">MicroPHP@开源中国</a></p>
+        <p>源代码许可证 <a target="_blank" href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License v2.0</a></p>
+        <p>MicroPHP官方QQ交流群 : 42807575 , 有问题欢迎加群交流</p>
+    </div>
+</div>
+<div id="gotoTop" title="返回顶部"></div>
+            <script type="text/javascript">
+    var duoshuoQuery = {short_name: "microphp"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+                || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<script src="public/ui/jquery.js"></script><script src="public/ui/js/bootstrap.min.js"></script><script src="public/microphp_res/js/buttons.js"></script><script src="public/microphp_res/js/run_prettify.js"></script><script src="public/microphp_res/js/scroll.js"></script><script src="public/microphp_res/js/style.js?ver=2.8"></script><div style="display: none;"><script type="text/javascript">
+    var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F25dc3c6d2187c5da81c6269c209aa726' type='text/javascript'%3E%3C/script%3E"));
+    </script></div>                </body>
+</html>
