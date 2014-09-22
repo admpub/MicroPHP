@@ -460,7 +460,7 @@ $system['db']['pdo_mysql']['stricton'] = FALSE;
 
 
 /* End of file index.php */
-include(FRAMEWORK_PATH.'/MicroPHP.php');
+include(FRAMEWORK_PATH.'/core/MicroPHP.php');
 CoreRouter::setConfig($system);
 CoreRouter::loadClass();
 
