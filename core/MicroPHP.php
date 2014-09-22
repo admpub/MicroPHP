@@ -35,7 +35,7 @@ if(!$system['debug'] && file_exists(FRAMEWORK_CORE_RUNTIME)){
 		}
 		file_exists(FRAMEWORK_CORE_RUNTIME) && unlink(FRAMEWORK_CORE_RUNTIME);
 	}else{
-		$content.='';
+		$content='';
 		foreach($coreFiles as $fileName){
 			$content.=compress_php(FRAMEWORK_CORE_PATH.'/'.$fileName.'.php');
 		}
