@@ -6,6 +6,7 @@
     <a href="http://microphp.us/plugins/microphp.php?manual.index" target="_blank">参考手册</a>
     | <a href="http://microphp.us/plugins/microphp.php?in.action/8" target="_blank">快速入门</a>
     | <a href="?demo/">HMVC</a>
+    | <a href="?welcome.genm" target="_blank">自动生成模型类文件</a>
 </p>
 <p style="text-align: center;"><?php echo $msg;?></p>
 </body>

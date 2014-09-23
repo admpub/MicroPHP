@@ -34,15 +34,26 @@ class CoreRouter {
             $class = new $methodInfo['class']();
             if (method_exists($class, $methodInfo['method'])) {
                 $methodInfo['parameters'] = is_array($methodInfo['parameters']) ? $methodInfo['parameters'] : array();
+				$result=null;
+                if (method_exists($class, '__before')) {
+					call_user_func_array(array($class, '__before'), array($methodInfo));
+				}
                 if (method_exists($class, '__output')) {
                     ob_start();
-                    call_user_func_array(array($class, $methodInfo['method']), $methodInfo['parameters']);
+                    $result=call_user_func_array(array($class, $methodInfo['method']), $methodInfo['parameters']);
+					if (method_exists($class, '__after')) {
+						call_user_func_array(array($class, '__after'), array($methodInfo,$result));
+					}
                     $buffer = ob_get_contents();
                     @ob_end_clean();
                     call_user_func_array(array($class, '__output'), array($buffer));
                 } else {
-                    call_user_func_array(array($class, $methodInfo['method']), $methodInfo['parameters']);
+                    $result=call_user_func_array(array($class, $methodInfo['method']), $methodInfo['parameters']);
+					if (method_exists($class, '__after')) {
+						call_user_func_array(array($class, '__after'), array($methodInfo,$result));
+					}
                 }
+				$result=null;
             } else {
                 trigger404($methodInfo['class'] . ':' . $methodInfo['method'] . ' not found.');
             }
