@@ -119,28 +119,6 @@ class CoreController extends CoreLoaderPlus {
             trigger404($filepath . ' not found.');
         }
     }
-
-	public static function contentType($type='html'){
-		$contentType='';
-		switch($type){
-			case 'js':
-				$contentType='application/javascript';
-				break;
-			case 'json':
-				$contentType='application/json';
-				break;
-			case 'css':
-				$contentType='text/css';
-				break;
-			case 'html':
-				$contentType='text/html';
-				break;
-			default:
-				$contentType='text/html';
-				break;
-		}
-		header('content-type:'.$contentType.';charset=utf-8');
-	}
 }
 
 /* End of file Controller.php */

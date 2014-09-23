@@ -1014,7 +1014,7 @@ class phpFastCache {
         if ($object == null) {
             return null;
         }
-        return $object['value'];
+        return isset($object['value'])?$object['value']:$object;
     }
 
     function delete($keyword, $option = array()) {

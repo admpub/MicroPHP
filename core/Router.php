@@ -106,7 +106,9 @@ class CoreRouter {
         $origin_class_method = $class_method;
         $class_method = explode('.', $class_method);
         $method = end($class_method);
-        $method = $system['controller_method_prefix'] . ($system['controller_method_ucfirst'] ? ucfirst($method) : $method);
+		if($system['controller_method_ucfirst'])$method = ucfirst($method);
+		$router['method_raw'] = $method;
+        $method = $system['controller_method_prefix'] . $method;
 
         unset($class_method[count($class_method) - 1]);
 

@@ -236,6 +236,7 @@ class CoreLoader {
     }
 
     public function view($view_name, $data = null, $return = false) {
+		self::contentType('html');
         if (is_array($data)) {
             $this->view_vars = array_merge($this->view_vars, $data);
             extract($this->view_vars);
@@ -442,6 +443,7 @@ class CoreLoader {
     }
 
     public function ajax_echo($code, $tip = null, $data = null, $jsonp_callback = null, $is_exit = true) {
+        self::contentType('json');
         $str = json_encode(array('code' => $code, 'tip' => is_null($tip) ? '' : $tip, 'data' => is_null($data) ? '' : $data));
         if (!empty($jsonp_callback)) {
             echo $jsonp_callback . "($str)";
@@ -454,12 +456,38 @@ class CoreLoader {
     }
 
     public static function xml_echo($xml, $is_exit = true) {
-        header('Content-type:text/xml;charset=utf-8');
+        self::contentType('xml');
         echo $xml;
         if ($is_exit) {
             exit();
         }
     }
+
+	public static function contentType($type='html'){
+		if(headers_sent())return;
+		$contentType='';
+		switch($type){
+			case 'js':
+				$contentType='application/javascript';
+				break;
+			case 'json':
+				$contentType='application/json';
+				break;
+			case 'css':
+				$contentType='text/css';
+				break;
+			case 'html':
+				$contentType='text/html';
+				break;
+			case 'xml':
+				$contentType='text/xml';
+				break;
+			default:
+				$contentType='text/html';
+				break;
+		}
+		header('content-type:'.$contentType.';charset=utf-8');
+	}
 
     public function redirect($url, $msg = null, $time = 3, $view = null) {
         $time = intval($time) ? intval($time) : 3;
@@ -482,7 +510,7 @@ class CoreLoader {
         if (!empty($url)) {
             header("refresh:{$time};url={$url}"); //单位秒
         }
-        header('Content-type: text/html; charset=utf-8');
+		self::contentType('html');
         $view = is_null($view) ? systemInfo('message_page_view') : $view;
         if (!empty($view)) {
             $this->view($view, array('msg' => $msg, 'url' => $url, 'time' => $time));
