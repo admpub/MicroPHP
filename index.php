@@ -24,7 +24,7 @@ define('FRAMEWORK_PATH',dirname(__FILE__));
 /**
  * --------------------系统配置-------------------------
  */
-
+$system = array();
 /**
  * 如果开启了URL Rewrite 功能，请在这里设置为TRUE，没有开启请设置为FALSE
  * 该配置会影响url()函数生成的链接
