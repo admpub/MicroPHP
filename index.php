@@ -458,6 +458,10 @@ $system['db']['pdo_mysql']['stricton'] = FALSE;
  * -------------------------数据库配置结束--------------------------
  */
 
+if($system['debug']){
+	ini_set('display_errors',TRUE);
+	error_reporting(E_ALL);
+}
 
 /* End of file index.php */
 include(FRAMEWORK_PATH.'/core/MicroPHP.php');

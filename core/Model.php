@@ -427,9 +427,9 @@ class CoreTableModel extends CoreModel {
     public function search($page, $pagesize, $url, $fields, $cond, $page_bar_order = array(1, 2, 3, 4, 5, 6), $page_bar_a_count = 10) {
         $data = array();
         $table = $this->full_table;
-        $query = $this->db->query('select count(*) as total from ' . $table . (strpos(trim($cond), 'order') === 0 ? '' : ' where') . $cond)->row_array();
+        $query = $this->db->query('select count(*) as total from ' . $table . (stripos(trim($cond), 'order') === 0 ? '' : ' where') . $cond)->row_array();
         $total = $query['total'];
-        $data['items'] = $this->db->query('select ' . $fields . ' from ' . $table . (strpos(trim($cond), 'order') === 0 ? '' : ' where') . $cond . ' limit ' . (($page - 1) * $pagesize) . ',' . $pagesize)->result_array();
+        $data['items'] = $this->db->query('select ' . $fields . ' from ' . $table . (stripos(trim($cond), 'order') === 0 ? '' : ' where') . $cond . ' limit ' . (($page - 1) * $pagesize) . ',' . $pagesize)->result_array();
         $data['page'] = $this->page($total, $page, $pagesize, $url, $page_bar_order, $page_bar_a_count);
         return $data;
     }

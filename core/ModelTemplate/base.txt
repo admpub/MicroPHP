@@ -1,0 +1,7 @@
+<?php
+class {#}BaseModel extends CoreTableModel {
+	public function __construct() {
+		parent::__construct();
+		$this->init(get_class($this));
+	}
+}

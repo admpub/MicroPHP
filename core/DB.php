@@ -41,7 +41,7 @@ class CoreDB {
         if ($force_new_conn || !isset(self::$conns[$hash])) {
             self::$conns[$hash] = new $class($config);
         }
-        if ($config['dbdriver'] == 'pdo' && strpos($config['hostname'], 'mysql') !== FALSE) {
+        if ($config['dbdriver'] == 'pdo' && stripos($config['hostname'], 'mysql') !== FALSE) {
             //pdo下面dns设置mysql字符会失效，这里hack一下
             self::$conns[$hash]->simple_query('set names ' . $config['char_set']);
         }
@@ -4099,7 +4099,7 @@ class CI_DB_pdo_driver extends CI_DB{
 	{
 		parent::__construct($params);
 		// clause and character used for LIKE escape sequences
-		if (strpos($this->hostname, 'mysql') !== FALSE)
+		if (stripos($this->hostname, 'mysql') !== FALSE)
 		{
 			$this->_like_escape_str = '';
 			$this->_like_escape_chr = '';
@@ -4111,7 +4111,7 @@ class CI_DB_pdo_driver extends CI_DB{
 			//Set the charset with the connection options
 			$this->options['PDO::MYSQL_ATTR_INIT_COMMAND'] = "SET NAMES {$this->char_set}";
 		}
-		elseif (strpos($this->hostname, 'odbc') !== FALSE)
+		elseif (stripos($this->hostname, 'odbc') !== FALSE)
 		{
 			$this->_like_escape_str = " {escape '%s'} ";
 			$this->_like_escape_chr = '!';
@@ -4377,7 +4377,7 @@ class CI_DB_pdo_driver extends CI_DB{
 	function insert_id($name=NULL)
 	{
 		//Convenience method for postgres insertid
-		if (strpos($this->hostname, 'pgsql') !== FALSE)
+		if (stripos($this->hostname, 'pgsql') !== FALSE)
 		{
 			$v = $this->_version();
 			$table	= func_num_args() > 0 ? func_get_arg(0) : NULL;
@@ -4708,7 +4708,7 @@ class CI_DB_pdo_driver extends CI_DB{
 	 */
 	function _limit($sql, $limit, $offset)
 	{
-		if (strpos($this->hostname, 'cubrid') !== FALSE || strpos($this->hostname, 'sqlite') !== FALSE)
+		if (stripos($this->hostname, 'cubrid') !== FALSE || stripos($this->hostname, 'sqlite') !== FALSE)
 		{
 			if ($offset == 0)
 			{

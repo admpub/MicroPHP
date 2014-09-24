@@ -1,0 +1,8 @@
+<?php
+defined('__DIR__') OR define('__DIR__',dirname(__FILE__));
+include __DIR__.'/base/{#}BaseModel{$}';
+class {#} extends {#}BaseModel {
+	public function __construct() {
+		parent::__construct();
+	}
+}
