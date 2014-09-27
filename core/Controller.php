@@ -160,7 +160,7 @@ class CoreControllerPlus extends CoreController {
 				$lang = $langcode[0];
 				$lang = strtolower($lang);
 				if (preg_match('/^[a-z\\-]+$/', $lang) && $this->validLanguage($lang)) {
-					CoreLoader::setCookie('lang', $lang, '1w');
+					CoreLoader::setCookie('lang', $lang, $cookie_lifetime);
 					CoreLoader::$system['language'] = $lang;
 				} else {
 					CoreLoader::setCookie('lang', CoreLoader::$system['default_language'], $cookie_lifetime);
