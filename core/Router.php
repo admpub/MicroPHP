@@ -250,6 +250,10 @@ class CoreRouter {
 	public static function info() {
 		return self :: $info;
 	}
+
+	public static function controller() {
+		return self :: $controller;
+	}
 }
 
 /**

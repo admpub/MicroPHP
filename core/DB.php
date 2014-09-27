@@ -1616,13 +1616,32 @@ class CI_DB_active_record extends CI_DB_driver {
                 $k .= ' IS NULL';
             }
             if (!is_null($v)) {
-                if ($escape === TRUE) {
-                    $k = $this->_protect_identifiers($k, FALSE, $escape);
-                    $v = ' ' . $this->escape($v);
-                }
-                if (!$this->_has_operator($k)) {
-                    $k .= ' = ';
-                }
+				if(is_array($v)){
+					if (!$this->_has_operator($k)) {
+						$k = $this->_protect_identifiers($k, FALSE, $escape);
+						$k .= ' IN ';
+						$v = '(\''.join('\',\'',array_map(array(&$this,'escape_str'),$v)).'\')';
+					}
+				}else{
+					$hasOprator=false;
+					if(strpos($k,'|')){
+						$ko=explode('|',$k,2);
+						if(in_array($ko[1],array('+','-','*','/','%'))){
+							$k = $this->_protect_identifiers($ko[0], FALSE, $escape);
+							$v = $k . $ko[1] . $v;
+							$hasOprator = true;
+						}
+					}
+					if(!$hasOprator){
+						if ($escape === TRUE) {
+							$k = $this->_protect_identifiers($k, FALSE, $escape);
+							$v = ' ' . $this->escape($v);
+						}
+						if (!$this->_has_operator($k)) {
+							$k .= ' = ';
+						}
+					}
+				}
             } else {
                 $k = $this->_protect_identifiers($k, FALSE, $escape);
             }

@@ -21,7 +21,7 @@ class CoreLoader {
 
     public $model, $lib, $router, $db, $input, $view_vars = array(), $cache, $rule;
     private static $helper_files = array(), $files = array();
-    private static $instance, $config = array();
+    private static $instance, $config = array(), $locale, $widgets = array();
     public static $system;
 
     public function __construct() {
@@ -41,6 +41,9 @@ class CoreLoader {
         if ($system['autoload_db']) {
             $this->database();
         }
+		if(!empty($system['language'])){
+			self::$locale = new CoreLocale($system['language']);
+		}
         stripslashes_all();
     }
 
@@ -297,6 +300,25 @@ class CoreLoader {
             }
         }
     }
+
+	public static function locale($lang=null) {
+		if(!is_object(self::$locale)) self::$locale = new CoreLocale($lang);
+		return self::$locale;
+	}
+
+	public static function widget($widgetName,&$viewInstance=null) {
+		if(!isset(self::$widgets[$widgetName])){
+			$class=$widgetName.'Widget';
+			if (!class_exists($class, false)) {
+				include(CoreLoader::$system['widget_folder'].'/'.$widgetName.'/'.$widgetName.'.php');
+				if (!class_exists($class, false)) {
+					eval(sprintf('class %s extends CoreWidget {}', $class));
+				}
+			}
+			self::$widgets[$widgetName] = call_user_func_array($class . '::factory', array($widgetName,$viewInstance));
+		}
+		return self::$widgets[$widgetName];
+	}
 
     public static function classAutoloadRegister() {
         $found = false;
@@ -563,10 +585,11 @@ class CoreLoader {
      */
     public static function page($total, $page, $pagesize, $url, $order = array(1, 2, 3, 4, 5, 6), $a_count = 10) {
         $a_num = $a_count;
-        $first = '首页';
-        $last = '尾页';
-        $pre = '上页';
-        $next = '下页';
+		$locale = CoreLoader :: locale(CoreLoader :: $system['language']);
+        $first = $locale -> gettext('首页');
+        $last = $locale -> gettext('尾页');
+        $pre = $locale -> gettext('上页');
+        $next = $locale -> gettext('下页');
         $a_num = $a_num % 2 == 0 ? $a_num + 1 : $a_num;
         $pages = ceil($total / $pagesize);
         $curpage = intval($page) ? intval($page) : 1;
@@ -596,9 +619,10 @@ class CoreLoader {
         $body.='</span>';
         $prefix = ($curpage == 1 ? '' : '<span class="page_bar_prefix"><a href="' . str_replace('{page}', 1, $url) . '">' . $first . '</a><a href="' . str_replace('{page}', $curpage - 1, $url) . '">' . $pre . '</a></span>');
         $suffix = ($curpage == $pages ? '' : '<span class="page_bar_suffix"><a href="' . str_replace('{page}', $curpage + 1, $url) . '">' . $next . '</a><a href="' . str_replace('{page}', $pages, $url) . '">' . $last . '</a></span>');
-        $info = "<span class=\"page_cur\">第{$curpage}/{$pages}页</span>";
-        $go = '<script>function ekup(){if(event.keyCode==13){clkyup();}}function clkyup(){var num=document.getElementById(\'gsd09fhas9d\').value;if(!/^\d+$/.test(num)||num<=0||num>' . $pages . '){alert(\'请输入正确页码!\');return;};location=\'' . addslashes($url) . '\'.replace(/\\{page\\}/,document.getElementById(\'gsd09fhas9d\').value);}</script><span class="page_input_num"><input onkeyup="ekup()" type="text" id="gsd09fhas9d" style="width:40px;vertical-align:text-baseline;padding:0 2px;font-size:10px;border:1px solid gray;"/></span><span id="gsd09fhas9daa" class="page_btn_go" onclick="clkyup();" style="cursor:pointer;text-decoration:underline;">转到</span>';
-        $total = "<span class=\"page_total\">共{$total}条</span>";
+        $info = '<span class="page_cur">'.sprintf($locale -> gettext('第%d/%d页'),$curpage,$pages).'</span>';
+		$inputId = 'PAGES'.time().rand(0,9999);
+        $go = '<span class="page_input_num"><input onkeyup="if(event.keyCode==13){var num=this.value;if(!/^\d+$/.test(num)||num<=0||num>' . $pages . '){alert(\''.$locale -> gettext('请输入正确页码!').'\');return;};location=\'' . addslashes($url) . '\'.replace(/\\{page\\}/,this.value);}" type="number" min="1" value="'.$page.'" id="'.$inputId.'" /></span><span class="page_btn_go" onclick="var num=document.getElementById(\''.$inputId.'\').value;if(!/^\d+$/.test(num)||num<=0||num>' . $pages . '){alert(\''.$locale -> gettext('请输入正确页码!').'\');return;};location=\'' . addslashes($url) . '\'.replace(/\\{page\\}/,num);" style="cursor:pointer">'.$locale -> gettext('转到').'</span>';
+        $total = '<span class="page_total">'.sprintf($locale -> gettext('共%d条'),$total).'</span>';
         $pagination = array(
             $total,
             $info,
@@ -1000,6 +1024,27 @@ class CoreLoader {
         }
     }
 
+	/**
+	* 错误日志
+	*
+	* @param	string	$	错误信息
+	* @param	string	$	日志类型: log|info|warn|error|dump|trace|table
+	* @return
+	*/
+	public static function log($msg,$type='log'){
+		if(!CoreLoader::$system['debug'])return;
+		if(!class_exists('FB',false) && file_exists(FRAMEWORK_CORE_PATH.'/FirePHP/fb.php')){
+			include FRAMEWORK_CORE_PATH.'/FirePHP/fb.php';
+		}
+		if(class_exists('FB',false)){
+			static $fbMethods=null;
+			if(is_null($fbMethods)) $fbMethods=get_class_methods('FB');
+			if(in_array($type,(array)$fbMethods)==false) exit('FB类不存在 '.$type.' 方法！');
+			FB::$type($msg);
+		}else{
+			echo htmlspecialchars($msg),'<br />';
+		}
+	}
 }
 
 

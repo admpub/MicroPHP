@@ -46,6 +46,15 @@ $system['view_folder'] = $system['application_folder'] . '/views';
  * 存放类库文件的文件夹路径名称,存放在该文件夹的类库中的类会自动加载,支持数组
  */
 $system['library_folder'] = $system['application_folder'] . '/library';
+
+//页面组件类文件夹
+$system['widget_folder'] = $system['application_folder'] . '/widget';
+
+//语言文件夹
+$system['language_folder'] = $system['application_folder'] . '/locale';
+//默认语言
+$system['default_language'] = 'en';
+$system['language'] = 'en';
 /**
  * 存放函数文件的文件夹路径名称,支持数组
  */

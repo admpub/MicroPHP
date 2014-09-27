@@ -408,6 +408,7 @@ class CoreTableModel extends CoreModel {
         if (!is_null($orderby)) {
             $this->db->order_by($orderby);
         }
+		$page = max(1,$page);
         $data['items'] = $this->db->select($fields)->limit($pagesize, ($page - 1) * $pagesize)->get($this->table)->result_array();
         $data['page'] = $this->page($total, $page, $pagesize, $url, $page_bar_order, $page_bar_a_count);
         return $data;
