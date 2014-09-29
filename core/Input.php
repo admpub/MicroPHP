@@ -483,7 +483,7 @@ class CoreInput {
         return self::gpcs('_SERVER', $key, $default);
     }
 
-    private static function gpcs($range, $key, $default) {
+    private static function gpcs($range, $key = null, $default = null) {
         global $$range;
         if ($key === null) {
             return $$range;
