@@ -28,7 +28,7 @@ function compress_php($phpFile,$delStart=true){
 if(!$system['debug'] && file_exists(FRAMEWORK_CORE_RUNTIME)){
 	include(FRAMEWORK_CORE_RUNTIME);
 }else{
-	$coreFiles=array('Helper','Loader','Input','Controller','Model','Router','Rule','DB','Cache','Session','Widget','Locale');
+	$coreFiles=array('Helper','Loader','Input','Controller','Model','Router','Rule','DB','Cache','Session','Widget','Locale','AutoExpires');
 	if($system['debug']){
 		foreach($coreFiles as $fileName){
 			include(FRAMEWORK_CORE_PATH.'/'.$fileName.'.php');

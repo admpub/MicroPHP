@@ -200,7 +200,7 @@ class CoreControllerPlus extends CoreController {
 		$smarty->setCompileDir($cache_dir . '/templates_c/');
 		$smarty->setConfigDir($cache_dir . '/configs/');
 		$smarty->setCacheDir($cache_dir . '/cache/');
-		$smarty->registered_cache_resources = array('phpFastCache');
+		$smarty->registered_cache_resources = array('phpFastCache','memcache');
 		//$smarty->caching_type = 'phpFastCache'; //TODO: 缓存无效
 		$smarty->caching_type = 'file';
 		if(CoreLoader::$system['cache_drivers'] == 'memcache'){
