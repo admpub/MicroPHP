@@ -32,12 +32,8 @@ class CoreLoader {
         $this->input = new CoreInput();
         $this->model = new CoreModelLoader();
         $this->lib = new CoreLibLoader();
-        if (class_exists('CoreRule', FALSE)) {
-            $this->rule = new CoreRule();
-        }
-        if (class_exists('phpFastCache', false)) {
-            $this->cache = phpFastCache::getInstance($system['cache_config']['storage'], $system['cache_config']);
-        }
+        $this->rule = new CoreRule();
+        $this->cache = phpFastCache::getInstance($system['cache_config']['storage'], $system['cache_config']);
         if ($system['autoload_db']) {
             $this->database();
         }
