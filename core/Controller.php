@@ -203,8 +203,15 @@ class CoreControllerPlus extends CoreController {
 		$smarty->registered_cache_resources = array('phpFastCache','memcache');
 		//$smarty->caching_type = 'phpFastCache'; //TODO: 缓存无效
 		$smarty->caching_type = 'file';
-		if(CoreLoader::$system['cache_drivers'] == 'memcache'){
-			$smarty->caching_type = 'memcache';
+		switch(CoreLoader::$system['cache_drivers']){
+			case 'memcache':
+			case 'apc': $smarty->caching_type = CoreLoader::$system['cache_drivers'];
+				break;
+			default:
+				if(function_exists('apc_cache_info')){
+					$smarty->caching_type = 'apc';
+				}
+				break;
 		}
 		$smarty->default_resource_type = 'file'; //模板保存方式
 
