@@ -143,7 +143,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
                     }
                     try {
                         ob_start();
-                        eval("?>" . $code);
+                        eval('?>' . $code);
                         unset($code);
                     }
                     catch (Exception $e) {
@@ -154,7 +154,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
                     if (!$_template->compiled->exists || ($_template->smarty->force_compile && !$_template->compiled->isCompiled)) {
                         $_template->compileTemplateSource();
                         $code = file_get_contents($_template->compiled->filepath);
-                        eval("?>" . $code);
+                        eval('?>' . $code);
                         unset($code);
                         $_template->compiled->loaded = true;
                         $_template->compiled->isCompiled = true;
@@ -168,7 +168,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
                             // recompile and load again
                             $_template->compileTemplateSource();
                             $code = file_get_contents($_template->compiled->filepath);
-                            eval("?>" . $code);
+                            eval('?>' . $code);
                             unset($code);
                             $_template->compiled->isCompiled = true;
                         }
@@ -262,7 +262,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
                 $_smarty_tpl = $_template;
                 try {
                     ob_start();
-                    eval("?>" . $output);
+                    eval('?>' . $output);
                     $_output = ob_get_clean();
                 }
                 catch (Exception $e) {
@@ -790,7 +790,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      */
     private function replaceCamelcase($match)
     {
-        return "_" . strtolower($match[1]);
+        return '_' . strtolower($match[1]);
     }
 
     /**
