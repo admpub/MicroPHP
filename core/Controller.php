@@ -205,7 +205,7 @@ class CoreControllerPlus extends CoreController {
 		$smarty->caching_type = 'file';
 		switch(phpFastCache::$storage){
 			case 'memcache':
-			case 'apc': $smarty->caching_type = CoreLoader::$system['cache_drivers'];
+			case 'apc': $smarty->caching_type = phpFastCache::$storage;
 				break;
 			default:
 				if(function_exists('apc_cache_info')){
