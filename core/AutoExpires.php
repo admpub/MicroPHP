@@ -285,7 +285,9 @@ final class AutoExpires {
 	 */
 	public static function getUserAgentCacheTime() {
 		$date = false;
-		self::getHeaders();
+		if(!isset($_SERVER['HTTP_IF_NONE_MATCH']) || !isset($_SERVER['HTTP_IF_MODIFIED_SINCE'])){
+			self::getHeaders();
+		}
 		// Check in $_SERVER
 		if (!empty($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
 			$date = $_SERVER['HTTP_IF_MODIFIED_SINCE'];
@@ -400,9 +402,6 @@ final class AutoExpires {
 	 * @return bool
 	 */
 	private static function userAgentHasValidCache($hash) {
-		// Try to get If-Modified-Since value
-		$userAgentCacheTime = self::getUserAgentCacheTime();
-
 		// Hash changed
 		if (self::usesStrategy('if-modified')) {
 			$sessionHash = self::getSessionHash();
@@ -414,6 +413,8 @@ final class AutoExpires {
 		if (!self::$useEtag) {
 			// Time expired
 			if (self::usesStrategy('if-expired')) {
+				// Try to get If-Modified-Since value
+				$userAgentCacheTime = self::getUserAgentCacheTime();
 				if (!$userAgentCacheTime) return false;
 				if ($userAgentCacheTime + self::getCacheTime() < $_SERVER['REQUEST_TIME']) {
 					return false;
