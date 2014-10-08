@@ -110,7 +110,7 @@ class CoreWidget {
  * public function execute() {
  * // your widget runs, happily ever after...
  * // this is where you can load in models (if you do MVC).
- * // use getInstance() get controller instance.
+ * // use Fn::getInstance() get controller instance.
  * return $this->display();
  * }
  *

@@ -458,7 +458,7 @@ class CoreInput {
      * @return type
      */
     public static function cookie($key = null, $default = null, $xss_clean = false) {
-        $key = systemInfo('cookie_key_prefix') . $key;
+        $key = Fn::systemInfo('cookie_key_prefix') . $key;
         return self::cookieRaw($key, $default, $xss_clean);
     }
 

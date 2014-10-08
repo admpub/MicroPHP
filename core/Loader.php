@@ -40,7 +40,7 @@ class CoreLoader {
 		if(!empty($system['language'])){
 			self::$locale = new CoreLocale($system['language']);
 		}
-        stripslashes_all();
+        Fn::stripslashes_all();
     }
 
     public function registerErrorHandle() {
@@ -115,7 +115,7 @@ class CoreLoader {
         $count = count($helper_folders);
         foreach ($helper_folders as $k => $helper_folder) {
             $filename = $helper_folder . DIRECTORY_SEPARATOR . $file_name . $system['helper_file_suffix'];
-            $filename = convertPath($filename);
+            $filename = Fn::convertPath($filename);
             if (in_array($filename, self::$helper_files)) {
                 return;
             }
@@ -362,7 +362,7 @@ class CoreLoader {
                         if ($file == '.' || $file == '..' || is_file($library_folder . DIRECTORY_SEPARATOR . $file)) {
                             continue;
                         }
-                        $path = truepath($library_folder) . DIRECTORY_SEPARATOR . $file . DIRECTORY_SEPARATOR . $clazzName . $system['library_file_suffix'];
+                        $path = Fn::truepath($library_folder) . DIRECTORY_SEPARATOR . $file . DIRECTORY_SEPARATOR . $clazzName . $system['library_file_suffix'];
                         if (file_exists($path)) {
                             self::includeOnce($path);
                             $found = true;
@@ -529,7 +529,7 @@ class CoreLoader {
             header("refresh:{$time};url={$url}"); //单位秒
         }
 		self::contentType('html');
-        $view = is_null($view) ? systemInfo('message_page_view') : $view;
+        $view = is_null($view) ? Fn::systemInfo('message_page_view') : $view;
         if (!empty($view)) {
             $this->view($view, array('msg' => $msg, 'url' => $url, 'time' => $time));
         } else {
@@ -564,7 +564,7 @@ class CoreLoader {
      * 如果不想加前缀，可以使用方法：$this->setCookieRaw()
      */
     public static function setCookie($key, $value, $life = null, $path = '/', $domian = null, $http_only = false) {
-        $key = systemInfo('cookie_key_prefix') . $key;
+        $key = Fn::systemInfo('cookie_key_prefix') . $key;
         return self::setCookieRaw($key, $value, $life, $path, $domian, $http_only);
     }
 
@@ -1013,7 +1013,7 @@ class CoreLoader {
     }
 
     public static function includeOnce($file_path) {
-        $key = md5(truepath(convertPath($file_path)));
+        $key = md5(Fn::truepath(Fn::convertPath($file_path)));
         if (!isset(self::$files[$key])) {
             include $file_path;
             self::$files[$key] = 1;

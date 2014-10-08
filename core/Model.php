@@ -187,7 +187,7 @@ class CoreTableModel extends CoreModel {
         if (!empty(self::$table_cache[$tableName])) {
             return self::$table_cache[$tableName];
         }
-        if (!file_exists($cache_file = systemInfo('table_cache_folder') . DIRECTORY_SEPARATOR . $tableName . '.php')) {
+        if (!file_exists($cache_file = Fn::systemInfo('table_cache_folder') . DIRECTORY_SEPARATOR . $tableName . '.php')) {
             $info = array();
             $result = $db->query('SHOW FULL COLUMNS FROM ' . $db->dbprefix . $tableName)->result_array();
             if ($result) {

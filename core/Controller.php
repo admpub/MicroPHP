@@ -229,7 +229,7 @@ class CoreControllerPlus extends CoreController {
 		//<{burl param=value}> ===> function build_url(...){...}
 		//$smarty->registerPlugin('modifier', 'astatus', 'audit_status');
 		//<{$var|astatus}> ===> function audit_status(...){...}
-		$smarty->registerPlugin('modifier', 'url', 'url');
+		$smarty->registerPlugin('modifier', 'url', 'Fn::url');
 
 		$this->view = &$smarty;
 	}
