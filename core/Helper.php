@@ -1,4 +1,57 @@
 <?php
+
+if (!function_exists('args')) {
+	function args($key = null) {
+		return CoreInput::parameters($key);
+	}
+}
+if (!function_exists('xss_clean')) {
+	function xss_clean($val) {
+		return CoreInput::xss_clean($val);
+	}
+}
+foreach (array('set_cookie'=>'setCookie', 'set_cookie_raw'=>'setCookieRaw') as $func=>$true) {
+	if (!function_exists($func)) {
+		eval('function ' . $func . '($key, $value, $life = null, $path = "/", $domian = null, $http_only = false) {
+					 return CoreLoader::' . $true . '($key, $value, $life, $path, $domian, $http_only);
+		 }');
+	}
+}
+foreach (array('server', 'session') as $func) {
+	if (!function_exists($func)) {
+		eval('function ' . $func . '($key = null, $default = null) {
+					 return CoreInput::' . $func . '($key, $default);
+		 }');
+	}
+}
+foreach (array('get_rule', 'post_rule', 'get_post_rule', 'post_get_rule') as $func) {
+	if (!function_exists($func)) {
+		eval('function ' . $func . '($rule, $key, $default = null) {
+					 return CoreInput::' . $func . '($rule, $key, $default);
+		 }');
+	}
+}
+foreach (array('get', 'post', 'cookie', 'cookie_raw', 'get_post', 'post_get') as $func) {
+	if (!function_exists($func)) {
+		if ($func == 'cookie_raw') {
+			$func = 'cookiRaw';
+		}
+		eval('function ' . $func . '($key = null, $default = null, $xss_clean = false) {
+					 return CoreInput::' . $func . '($key, $default, $xss_clean);
+		 }');
+	}
+}
+foreach (array('get_int', 'post_int', 'get_post_int', 'post_get_int',
+ 'get_time', 'post_time', 'get_post_time', 'post_get_time',
+ 'get_date', 'post_date', 'get_post_date', 'post_get_date',
+ 'get_datetime', 'post_datetime', 'get_post_datetime', 'post_get_datetime') as $func) {
+	if (!function_exists($func)) {
+		eval('function ' . $func . '($key, $min = null, $max = null, $default = null) {
+					 return CoreInput::' . $func . '($key, $min, $max, $default);
+		 }');
+	}
+}
+
 if (!function_exists('dump')) {
 
     /**

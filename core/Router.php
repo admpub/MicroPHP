@@ -179,15 +179,36 @@ class CoreRouter {
 
 	private static function checkSession() {
 		$system = CoreLoader :: $system;
-		// session自定义配置检测
+		$common_config = $system['session_handle']['common'];
+		ini_set('session.auto_start', 0);
+		ini_set('session.gc_probability', 1);
+		ini_set('session.gc_divisor', 100);
+		ini_set('session.gc_maxlifetime', $common_config['lifetime']);
+		ini_set('session.referer_check', '');
+		ini_set('session.entropy_file', '/dev/urandom');
+		ini_set('session.entropy_length', 16);
+		ini_set('session.use_cookies', 1);
+		ini_set('session.use_only_cookies', 1);
+		ini_set('session.use_trans_sid', 0);
+		ini_set('session.hash_function', 1);
+		ini_set('session.hash_bits_per_character', 5);
+		session_cache_limiter('nocache');
+		session_set_cookie_params(
+				$common_config['lifetime'], $common_config['cookie_path'], preg_match('/^[^\\.]+$/', CoreInput::server('HTTP_HOST')) ? null : $common_config['cookie_domain']
+		);
+		session_name($common_config['session_name']);
+		register_shutdown_function('session_write_close');
 		if (!empty($system['session_handle']['handle']) && isset($system['session_handle'][$system['session_handle']['handle']])) {
 			$driver = $system['session_handle']['handle'];
 			$config = $system['session_handle'];
 			$handle = ucfirst($driver) . 'SessionHandle';
-			if (class_exists($handle, false)) {
+			if (class_exists($handle, FALSE)) {
 				$session = new $handle();
-				$session -> start($config);
+				$session->start($config);
 			}
+		}
+		if ($common_config['autostart']) {
+			sessionStart();
 		}
 	}
 
