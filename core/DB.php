@@ -869,7 +869,7 @@ class CI_DB_driver {
      * @return        string        sends the application/error_db.php template
      */
     function display_error($error = '', $swap = '', $native = FALSE) {
-        core_db_error_handler($error, $swap, $native);
+        Fn::core_db_error_handler($error, $swap, $native);
     }
     /**
      * Protect Identifiers
