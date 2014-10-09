@@ -56,13 +56,13 @@ class CoreRouter {
 				}
 				$result = null;
 			} else {
-				trigger404($methodInfo['class'] . ':' . $methodInfo['method'] . ' not found.');
+				Fn::trigger404($methodInfo['class'] . ':' . $methodInfo['method'] . ' not found.');
 			}
 		} else {
 			if ($system['debug']) {
-				trigger404('file:' . $methodInfo['file'] . ' not found.');
+				Fn::trigger404('file:' . $methodInfo['file'] . ' not found.');
 			} else {
-				trigger404();
+				Fn::trigger404();
 			}
 		}
 	}
@@ -151,9 +151,9 @@ class CoreRouter {
 			$pathinfo = @parse_url($_SERVER['REQUEST_URI']);
 			if (empty($pathinfo)) {
 				if ($system['debug']) {
-					trigger404('request parse error:' . $_SERVER['REQUEST_URI']);
+					Fn::trigger404('request parse error:' . $_SERVER['REQUEST_URI']);
 				} else {
-					trigger404();
+					Fn::trigger404();
 				}
 			}
 			// pathinfo模式下有?,那么$pathinfo['query']也是非空的，这个时候查询字符串是PATH_INFO和query

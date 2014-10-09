@@ -113,10 +113,10 @@ class CoreController extends CoreLoaderPlus {
             if (class_exists($classname, FALSE)) {
                 return $loadedClasses[$alias_name] = new $classname();
             } else {
-                trigger404('Ccontroller Class:' . $classname . ' not found.');
+                Fn::trigger404('Ccontroller Class:' . $classname . ' not found.');
             }
         } else {
-            trigger404($filepath . ' not found.');
+            Fn::trigger404($filepath . ' not found.');
         }
     }
 }

@@ -64,12 +64,12 @@ class CoreModel extends CoreLoaderPlus {
                     return CoreModelLoader::$model_files[$alias_name] = new $classname();
                 } else {
                     if ($key == $count - 1) {
-                        trigger404('Model Class:' . $classname . ' not found.');
+                        Fn::trigger404('Model Class:' . $classname . ' not found.');
                     }
                 }
             } else {
                 if ($key == $count - 1) {
-                    trigger404($filepath . ' not  found.');
+                    Fn::trigger404($filepath . ' not  found.');
                 }
             }
         }

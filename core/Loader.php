@@ -139,7 +139,7 @@ class CoreLoader {
                 break;
             } else {
                 if (($count - 1) == $k) {
-                    trigger404($filename . ' not found.');
+                    Fn::trigger404($filename . ' not found.');
                 }
             }
         }
@@ -180,12 +180,12 @@ class CoreLoader {
                     }
                 } else {
                     if ($key == $count - 1) {
-                        trigger404('Library Class:' . $classname . ' not found.');
+                        Fn::trigger404('Library Class:' . $classname . ' not found.');
                     }
                 }
             } else {
                 if ($key == $count - 1) {
-                    trigger404($filepath . ' not found.');
+                    Fn::trigger404($filepath . ' not found.');
                 }
             }
         }
@@ -223,12 +223,12 @@ class CoreLoader {
                     return CoreModelLoader::$model_files[$alias_name] = new $classname();
                 } else {
                     if ($key == $count - 1) {
-                        trigger404('Model Class:' . $classname . ' not found.');
+                        Fn::trigger404('Model Class:' . $classname . ' not found.');
                     }
                 }
             } else {
                 if ($key == $count - 1) {
-                    trigger404($filepath . ' not  found.');
+                    Fn::trigger404($filepath . ' not  found.');
                 }
             }
         }
@@ -255,7 +255,7 @@ class CoreLoader {
             $path_key = current($info);
             $view_name = next($info);
             if (!isset($system['view_folder'][$path_key])) {
-                trigger404('error key[' . $path_key . '] of '.$system['view_folder']);
+                Fn::trigger404('error key[' . $path_key . '] of '.$system['view_folder']);
             } else {
                 $dir = $system['view_folder'][$path_key];
                 $view_path = $dir . DIRECTORY_SEPARATOR . $view_name . $system['view_file_suffix'];
@@ -271,7 +271,7 @@ class CoreLoader {
                         return;
                     }
                 } else {
-                    trigger404('View:' . $view_path . ' not found');
+                    Fn::trigger404('View:' . $view_path . ' not found');
                 }
             }
         } else {
@@ -291,7 +291,7 @@ class CoreLoader {
                         return;
                     }
                 } elseif (($i++) == $count - 1) {
-                    trigger404('View:' . $view_path . ' not found');
+                    Fn::trigger404('View:' . $view_path . ' not found');
                 }
             }
         }
@@ -453,11 +453,11 @@ class CoreLoader {
             $system['view_folder'] = array($system['view_folder']);
         }
         if (!isset($system['view_folder'][$path_key])) {
-            trigger404('error key[' . $path_key . '] of '.$system['view_folder']);
+            Fn::trigger404('error key[' . $path_key . '] of '.$system['view_folder']);
         }
         $dir = $system['view_folder'][$path_key];
         $view_path = $dir . DIRECTORY_SEPARATOR . $view_name . $system['view_file_suffix'];
-        return truepath($view_path);
+        return Fn::truepath($view_path);
     }
 
     public function ajax_echo($code, $tip = null, $data = null, $jsonp_callback = null, $is_exit = true) {
