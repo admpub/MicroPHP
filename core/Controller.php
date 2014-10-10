@@ -102,7 +102,7 @@ class CoreController extends CoreLoaderPlus {
         $filepath = $system['controller_folder'] . DIRECTORY_SEPARATOR . $classname_path . $system['controller_file_suffix'];
         $alias_name = strtolower($classname);
         static $loadedClasses = array();
-        if (in_array($alias_name, array_keys($loadedClasses))) {
+        if (isset($loadedClasses[$alias_name])) {
             return $loadedClasses[$alias_name];
         }
         if (file_exists($filepath)) {

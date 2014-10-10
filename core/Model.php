@@ -50,7 +50,7 @@ class CoreModel extends CoreLoaderPlus {
         foreach ($model_folders as $key => $model_folder) {
             $filepath = $model_folder . DIRECTORY_SEPARATOR . $classname_path . $system['model_file_suffix'];
             $alias_name = $classname;
-            if (in_array($alias_name, array_keys(CoreModelLoader::$model_files))) {
+            if (isset(CoreModelLoader::$model_files[$alias_name])) {
                 return CoreModelLoader::$model_files[$alias_name];
             }
             if (file_exists($filepath)) {

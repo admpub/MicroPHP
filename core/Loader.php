@@ -161,7 +161,7 @@ class CoreLoader {
         $count = count($library_folders);
         foreach ($library_folders as $key => $library_folder) {
             $filepath = $library_folder . DIRECTORY_SEPARATOR . $file_name . $system['library_file_suffix'];
-            if (in_array($alias_name, array_keys(CoreLibLoader::$lib_files))) {
+            if (isset(CoreLibLoader::$lib_files[$alias_name])) {
                 return CoreLibLoader::$lib_files[$alias_name];
             } else {
                 foreach (CoreLibLoader::$lib_files as $aname => $obj) {
@@ -208,7 +208,7 @@ class CoreLoader {
         foreach ($model_folders as $key => $model_folder) {
             //$filepath = $system['model_folder'] . DIRECTORY_SEPARATOR . $file_name . $system['model_file_suffix'];
             $filepath = $model_folder . DIRECTORY_SEPARATOR . $file_name . $system['model_file_suffix'];
-            if (in_array($alias_name, array_keys(CoreModelLoader::$model_files))) {
+            if (isset(CoreModelLoader::$model_files[$alias_name])) {
                 return CoreModelLoader::$model_files[$alias_name];
             } else {
                 foreach (CoreModelLoader::$model_files as &$obj) {
