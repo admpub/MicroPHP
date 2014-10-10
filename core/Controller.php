@@ -68,10 +68,10 @@ class CoreController extends CoreLoaderPlus {
             $namex = str_replace('.php', '', $file);
             //只include选择的缓存驱动文件
             if ($namex == $system['cache_config']['storage']) {
-                if (!isset($included[truepath($filepath)])) {
+                if (!isset($included[Fn:truepath($filepath)])) {
                     CoreLoader::includeOnce($filepath);
                 } else {
-                    $included[truepath($filepath)] = 1;
+                    $included[Fn::truepath($filepath)] = 1;
                 }
             }
         }

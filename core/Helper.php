@@ -524,7 +524,7 @@ class CoreFn {
 	}
 
 	public static function format_error($errno, $errstr, $errfile, $errline) {
-		$path = truepath(CoreLoader::$system['application_folder']);
+		$path = self::truepath(CoreLoader::$system['application_folder']);
 		$path .= empty($path) ? '' : '/';
 		$array_map = array('0' => 'EXCEPTION', '1' => 'ERROR', '2' => 'WARNING', '4' => 'PARSE', '8' => 'NOTICE', '16' => 'CORE_ERROR', '32' => 'CORE_WARNING', '64' => 'COMPILE_ERROR', '128' => 'COMPILE_WARNING', '256' => 'USER_ERROR', '512' => 'USER_WARNING', '1024' => 'USER_NOTICE', '2048' => 'STRICT', '4096' => 'RECOVERABLE_ERROR', '8192' => 'DEPRECATED', '16384' => 'USER_DEPRECATED');
 		$trace = get_strace();
